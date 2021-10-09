@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-public class BallCreationScript : MonoBehaviour
+public class Creation : MonoBehaviour
 {
     public GameObject cubePrefab;
     
@@ -11,7 +11,7 @@ public class BallCreationScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            GameObject cube = Instantiate(cubePrefab, transform.position, Quaternion.identity);
+            Instantiate(cubePrefab, transform.position, transform.rotation);
         }
     }
     
