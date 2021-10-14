@@ -6,6 +6,12 @@ public class PortalGun : MonoBehaviour
     public GameObject portalPrefab;
 
     private GameObject bluePortal, orangePortal;
+    private Transform cam;
+
+    private void Start()
+    {
+        cam = GetComponentInChildren<Camera>().transform;
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,11 +43,23 @@ public class PortalGun : MonoBehaviour
     }
 
     private GameObject CreatePortal()
-    {
+    {/*
         float playerRotation = transform.rotation.eulerAngles.y;
         float portalRotation = (playerRotation + 180) % 360;
         Quaternion portalQuaternion = Quaternion.Euler(0f, portalRotation, 0f);
-        return Instantiate(portalPrefab, transform.position + transform.forward * 2, portalQuaternion);
+        */
+        // raycast
+        Vector3 origin = cam.position;
+        Vector3 direction = cam.forward;
+        Physics.Raycast(origin, direction, out RaycastHit hitInfo);
+
+        // determine rotation
+        Quaternion rotation = hitInfo.transform.rotation;
+
+        // determine position
+        Vector3 position = hitInfo.point;
+
+        return Instantiate(portalPrefab, position, rotation);
     }
 
     private void UpdatePortals()
