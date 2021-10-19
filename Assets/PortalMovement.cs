@@ -53,9 +53,9 @@ public class PortalMovement : MonoBehaviour,  IPortable
             return;
         }
 
-        Vector3 tmp = Vector3.zero + transform.right * horizontal + transform.forward * vertical;
-        tmp = tmp * speed * Time.deltaTime;
-        rb.MovePosition(transform.position + tmp);
+        Vector3 motionDelta = Vector3.zero + transform.right * horizontal + transform.forward * vertical;
+        motionDelta = motionDelta * speed * Time.fixedDeltaTime;
+        rb.MovePosition(transform.position + motionDelta);
 
         
 
