@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerController : Controller
 {
     // Start is called before the first frame update
     public float speed = 10f;
     public float mouseSensitivity = 1000f;
     public Transform cam;
     
-    private Rigidbody _rb;
-    private StateCollection _statesOverTime;
-    private bool _rewind;
-
     private float xRotation = 0f;
     
     public Vector3 jump;
@@ -21,9 +17,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        GetRigidBody();
+        InitStateHandling();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
-        _statesOverTime = new StateCollection();
     }
 
     void Update()
@@ -48,54 +44,6 @@ public class PlayerBehaviour : MonoBehaviour
             _rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
         
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            _rewind = true;
-        }
-
-        if (Input.GetKeyUp(KeyCode.L))
-        {
-            _rewind = false;
-        }
-    }
-
-
-    private void FixedUpdate()
-    {        
-        
-        if (!_rewind)
-        {
-            RecordStates();
-        }
-        else
-        {
-            Rewind();
-        }
-    }
-    
-    void RecordStates()
-    {
-        var position = _rb.position;
-        var velocity = _rb.velocity;
-        var rotation = _rb.rotation;
-        
-        _statesOverTime.Push(new State(position, velocity, rotation));
-    }
-
-    void Rewind()
-    {
-        if (_rewind && _statesOverTime.Peak())
-        {
-            State state = _statesOverTime.Pop();
-            
-            _rb.position = state.Position;
-            _rb.velocity = state.Velocity;
-            _rb.rotation = state.Rotation;
-        }
-
-        if (!_statesOverTime.Peak())
-        {
-            Destroy(gameObject);
-        }
+        HandleRewind(KeyCode.L);
     }
 }
