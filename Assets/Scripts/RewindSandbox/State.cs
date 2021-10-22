@@ -20,5 +20,12 @@ namespace DefaultNamespace
         {
             return "position: " + Position + " | velocity: " + Velocity + " | rotation: " + Rotation;
         }
+
+        public bool Equals(State other)
+        {
+            return Position.x.Equals(other.Position.x) &&  Position.y.Equals(other.Position.y) && Position.z.Equals(other.Position.z)  
+                   && Velocity.x.Equals(other.Velocity.x) && Velocity.y.Equals(other.Velocity.y) && Velocity.z.Equals(other.Velocity.z)
+                   && Rotation.x.Equals(other.Rotation.x) && Rotation.y.Equals(other.Rotation.y) && Rotation.z.Equals(other.Rotation.z);
+        }
     }
 }

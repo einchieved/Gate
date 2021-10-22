@@ -11,7 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
     public Transform cam;
     
     private Rigidbody _rb;
-    private readonly Stack<State> _statesOverTime = new Stack<State>();
+    private StateCollection _statesOverTime;
     private bool _rewind;
 
     private float xRotation = 0f;
@@ -23,6 +23,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         jump = new Vector3(0.0f, 2.0f, 0.0f);
+        _statesOverTime = new StateCollection();
     }
 
     void Update()
@@ -83,7 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Rewind()
     {
-        if (_rewind && _statesOverTime.Count > 0)
+        if (_rewind && _statesOverTime.Peak())
         {
             State state = _statesOverTime.Pop();
             
@@ -92,7 +93,7 @@ public class PlayerBehaviour : MonoBehaviour
             _rb.rotation = state.Rotation;
         }
 
-        if (_statesOverTime.Count == 0)
+        if (!_statesOverTime.Peak())
         {
             Destroy(gameObject);
         }
