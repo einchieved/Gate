@@ -37,7 +37,7 @@ public class StateCollection
     }
     
     int Mod(int x, int m) {
-        return (x%m + m)%m;
+        return (x % m + m) % m;
     }
 
     public bool Peak()
