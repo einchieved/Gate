@@ -11,6 +11,9 @@ TagManager:
   - 
   - Water
   - UI
+  - Time
+  - SphereTime
+  - CubeTime
   - FreePortalPlacement
   - Fixed PortalPlacement
   - 

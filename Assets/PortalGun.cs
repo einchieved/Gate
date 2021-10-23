@@ -49,14 +49,14 @@ public class PortalGun : MonoBehaviour
         // raycast
         Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo);
         int targetLayer = hitInfo.transform.gameObject.layer;
-        if (targetLayer != 6 && targetLayer != 7)
+        if (targetLayer != 9 && targetLayer != 10)
         {
             return false;
         }
 
         newPortal = Instantiate(portalPrefab, hitInfo.point, hitInfo.transform.rotation);
         // adjust portal rotation to player rotation
-        if (targetLayer == 6)
+        if (targetLayer == 9)
         {
             Vector3 eulerAngles = newPortal.transform.rotation.eulerAngles;
             newPortal.transform.rotation = Quaternion.Euler(eulerAngles.x, transform.rotation.eulerAngles.y + 180, eulerAngles.z);
