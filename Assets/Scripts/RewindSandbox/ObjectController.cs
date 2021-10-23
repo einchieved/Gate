@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-public class ObjectController : Controller
+public class ObjectController : Controller, ITimeControlable
 {
+    public bool IsFocused { get; set; }
+
     private void Start()
     {
         GetRigidBody();
@@ -13,7 +15,15 @@ public class ObjectController : Controller
 
     private void Update()
     {
-       HandleRewind(KeyCode.E, KeyCode.T);
+        if (IsFocused)
+        {
+            HandleRewind(KeyCode.E, KeyCode.T);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            IsFocused = false;
+        }
     }
 
     

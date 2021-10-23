@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class PlayerController : Controller
 {
@@ -15,10 +17,14 @@ public class PlayerController : Controller
     public Vector3 jump;
     public float jumpForce = 8.0f;
 
+    private ObjectDetection objectDetection;
+
+
     void Start()
     {
-        GetRigidBody();
         InitStateHandling();
+        GetRigidBody();
+        objectDetection = new ObjectDetection(this);
         jump = new Vector3(0.0f, 2.0f, 0.0f);
     }
 
@@ -27,8 +33,11 @@ public class PlayerController : Controller
         HandleMovement();
         HandleRewind(KeyCode.Q, KeyCode.W);
     }
-    
-    
+
+    void FixedUpdate()
+    {
+        objectDetection.DetectObject();
+    }
 
     private void HandleMovement()
     {
