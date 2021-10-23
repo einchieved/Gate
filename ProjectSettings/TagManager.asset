@@ -14,6 +14,9 @@ TagManager:
   - Time
   - SphereTime
   - CubeTime
+  - FreePortalPlacement
+  - Fixed PortalPlacement
+  - 
   - 
   - 
   - 

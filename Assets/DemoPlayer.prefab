@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 8260598316874049806}
   - component: {fileID: 6105366720980228604}
   - component: {fileID: 980332646780182589}
+  - component: {fileID: 2427928115036906710}
   - component: {fileID: 1867433148311454211}
+  - component: {fileID: 930722519634637019}
   m_Layer: 0
   m_Name: DemoPlayer
   m_TagString: Untagged
@@ -98,6 +100,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &2427928115036906710
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974491610685543987}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!114 &1867433148311454211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,9 +128,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 646597e93ed43f44f8a7ac89f0e781a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   mouseSensitivity: 1000
+  maxFallSpeed: 20
   cam: {fileID: 5485568949664331953}
+--- !u!114 &930722519634637019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974491610685543987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5783e1758bae0f45bee0af48044a526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueMaterial: {fileID: 2100000, guid: f35b5d45bbebab944bcc5c245b856f77, type: 2}
+  orangeMaterial: {fileID: 2100000, guid: e16272948bddaf248bf51c92d2404088, type: 2}
+  portalPrefab: {fileID: 8720775228202673857, guid: 19ebe7075cd019b469241353a7ded20f, type: 3}
 --- !u!1 &5485568949664331956
 GameObject:
   m_ObjectHideFlags: 0
