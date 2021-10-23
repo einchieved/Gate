@@ -8,7 +8,7 @@ public class StateRecorder
     private Rigidbody _rb;
     private StateCollection _statesOverTime;
     private DateTime currentTime;
-
+ 
     public StateRecorder(Rigidbody rb, StateCollection statesOverTime)
     {
         _rb = rb;
@@ -28,7 +28,5 @@ public class StateRecorder
             
             currentTime = DateTime.Now;
         }
-        
-        
     }
 }

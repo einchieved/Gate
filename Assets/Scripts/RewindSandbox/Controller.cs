@@ -4,7 +4,7 @@ using UnityEngine;
 public class Controller: MonoBehaviour
 {
     protected Rigidbody _rb;
-    private bool _rewind;
+    protected bool _rewind;
     
     private StateCollection _statesOverTime;
     private TimeReverser timeReverser;
@@ -23,17 +23,22 @@ public class Controller: MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
     
-    protected void HandleRewind(KeyCode controllElement)
+    protected void HandleRewind(KeyCode rewindKey, KeyCode endRewindKey)
     {
-        if (Input.GetKeyDown(controllElement))
+        if (Input.GetKeyDown(rewindKey))
         {
             EnableRewind();
         }
 
-        if (Input.GetKeyUp(controllElement))
+        if (Input.GetKeyDown(endRewindKey))
         {
             DisableRewind();
             AdaptState();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Freeze();
         }
     }
     
@@ -41,10 +46,14 @@ public class Controller: MonoBehaviour
     private void AdaptState()
     {
         State lastState = timeReverser.CurrentState;
-            
-        _rb.position = lastState.Position;
-        _rb.velocity = lastState.Velocity;
-        _rb.rotation = lastState.Rotation;
+
+        if (_rb != null && lastState != null)
+        {
+            _rb.position = lastState.Position;
+            _rb.velocity = lastState.Velocity;
+            _rb.rotation = lastState.Rotation; 
+        }
+        
     }
 
     public void EnableRewind()
@@ -59,6 +68,13 @@ public class Controller: MonoBehaviour
         _rewind = false;
         _rb.useGravity = true;
         _rb.isKinematic = false;
+    }
+    
+    protected void Freeze()
+    {
+            _rewind = false;
+            _rb.useGravity = false;
+            _rb.isKinematic = true;
     }
 
     private void FixedUpdate()

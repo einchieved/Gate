@@ -10,14 +10,21 @@ public class Creation : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Instantiate(cubePrefab, transform.position, transform.rotation);
+        GameObject gameObject = null;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        { 
+            gameObject = Instantiate(cubePrefab, transform.position, transform.rotation);
         }
         
-        if (Input.GetKeyDown(KeyCode.Y))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Instantiate(spherePrefab, transform.position, transform.rotation);
+            gameObject = Instantiate(spherePrefab, transform.position, transform.rotation);
+        }
+
+        if (gameObject != null)
+        {
+            Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+            rigidbody.AddForce(transform.forward * 1000); 
         }
     }
     

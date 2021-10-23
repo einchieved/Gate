@@ -24,6 +24,14 @@ public class PlayerController : Controller
 
     void Update()
     {
+        HandleMovement();
+        HandleRewind(KeyCode.Q, KeyCode.W);
+    }
+    
+    
+
+    private void HandleMovement()
+    {
         float vertical = Input.GetAxis("Vertical");
         float horizontal = Input.GetAxis("Horizontal");
 
@@ -43,7 +51,5 @@ public class PlayerController : Controller
         if(Input.GetKeyDown(KeyCode.Space)){
             _rb.AddForce(jump * jumpForce, ForceMode.Impulse);
         }
-        
-        HandleRewind(KeyCode.L);
     }
 }
