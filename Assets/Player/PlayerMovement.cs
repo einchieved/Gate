@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalMovement : MonoBehaviour,  IPortable
+public class PlayerMovement : MonoBehaviour,  IPortable
 {
     public float speed = 200f;
     public float mouseSensitivity = 200f;

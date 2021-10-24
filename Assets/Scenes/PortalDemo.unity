@@ -457,26 +457,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235806855}
   m_CullTransparentMesh: 1
---- !u!1 &1435669380 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 974491610685543987, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-  m_PrefabInstance: {fileID: 5485568949784319429}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1435669381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1435669380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5783e1758bae0f45bee0af48044a526, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blueMaterial: {fileID: 2100000, guid: f35b5d45bbebab944bcc5c245b856f77, type: 2}
-  orangeMaterial: {fileID: 2100000, guid: e16272948bddaf248bf51c92d2404088, type: 2}
-  portalPrefab: {fileID: 8720775228202673857, guid: 19ebe7075cd019b469241353a7ded20f, type: 3}
 --- !u!1 &1489280008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,29 +1044,9 @@ PrefabInstance:
       value: DemoPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 1867433148311454211, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867433148311454211, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
       propertyPath: playerBody
       value: 
       objectReference: {fileID: 409492351}
-    - target: {fileID: 2427928115036906710, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427928115036906710, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427928115036906710, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2427928115036906710, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5314539713891075264, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
       propertyPath: m_RootOrder
       value: 0
