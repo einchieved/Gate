@@ -62,13 +62,14 @@ public class PortalGun : MonoBehaviour
             return false;
         }
 
-        newPortal = Instantiate(portalPrefab, hitInfo.point, hitInfo.transform.rotation);
-        newPortal.transform.forward = hitInfo.transform.up;
+        Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.01f;
+        //Vector3 newPortalRotation = hitInfo.transform.rotation.eulerAngles;
+        newPortal = Instantiate(portalPrefab, newPortalPosition, hitInfo.transform.rotation);
         // adjust portal rotation to player rotation
         if (targetLayer == 9)
         {
             Vector3 eulerAngles = newPortal.transform.rotation.eulerAngles;
-            newPortal.transform.rotation = Quaternion.Euler(eulerAngles.x, transform.rotation.eulerAngles.y + 180, eulerAngles.z);
+            newPortal.transform.rotation = Quaternion.Euler(eulerAngles.x, transform.rotation.eulerAngles.y, eulerAngles.z);
         }
 
         newPortal.GetComponentInChildren<Camera>().enabled = false;
