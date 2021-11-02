@@ -6,7 +6,7 @@ public class PortalGun : MonoBehaviour
     public GameObject portalPrefab;
 
     private GameObject bluePortal, orangePortal;
-    private MeshRenderer blueMeshRenderer, orangeMeshRenderer;
+    private PortalParentHandler bluePortalHandler, orangePortalHandler;
     private RenderTexture blueRenderTexture, orangeRenderTexture;
     private Transform cam;
 
@@ -30,8 +30,9 @@ public class PortalGun : MonoBehaviour
                 Destroy(bluePortal);
             }
             bluePortal = newBluePortal;
-            blueMeshRenderer = bluePortal.GetComponent<MeshRenderer>();
-            blueMeshRenderer.material = blueDefaultMaterial;
+            bluePortalHandler = bluePortal.GetComponent<PortalParentHandler>();
+            bluePortalHandler.AssignMaterial(blueDefaultMaterial);
+            bluePortalHandler.DisableCamera();
             UpdatePortals();
 
             return;
@@ -45,8 +46,9 @@ public class PortalGun : MonoBehaviour
                 Destroy(orangePortal);
             }
             orangePortal = newOrangePortal;
-            orangeMeshRenderer = orangePortal.GetComponent<MeshRenderer>();
-            orangeMeshRenderer.material = orangeDefaultMaterial;
+            orangePortalHandler = orangePortal.GetComponent<PortalParentHandler>();
+            orangePortalHandler.AssignMaterial(orangeDefaultMaterial);
+            orangePortalHandler.DisableCamera();
             UpdatePortals();
         }
     }
@@ -63,8 +65,9 @@ public class PortalGun : MonoBehaviour
         }
 
         Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.01f;
-        //Vector3 newPortalRotation = hitInfo.transform.rotation.eulerAngles;
-        newPortal = Instantiate(portalPrefab, newPortalPosition, hitInfo.transform.rotation);
+        newPortal = Instantiate(portalPrefab, newPortalPosition, Quaternion.identity);
+        // adjust rotation
+        newPortal.transform.forward = hitInfo.transform.up * -1;
         // adjust portal rotation to player rotation
         if (targetLayer == 9)
         {
@@ -72,7 +75,6 @@ public class PortalGun : MonoBehaviour
             newPortal.transform.rotation = Quaternion.Euler(eulerAngles.x, transform.rotation.eulerAngles.y, eulerAngles.z);
         }
 
-        newPortal.GetComponentInChildren<Camera>().enabled = false;
         return true;
     }
 
@@ -80,18 +82,15 @@ public class PortalGun : MonoBehaviour
     {
         if (orangePortal != null && bluePortal != null)
         {
-            Camera tmpCam;
-            bluePortal.GetComponent<PortalTravel>().OtherPortal = orangePortal.transform;
-            tmpCam = bluePortal.GetComponentInChildren<Camera>();
-            tmpCam.targetTexture = orangeRenderTexture;
-            tmpCam.enabled = true;
-            blueMeshRenderer.material = blueMaterial;
+            bluePortalHandler.AssignOtherPortal(orangePortalHandler.GetPortalTravel());
+            bluePortalHandler.AssignTargetRenderTexture(orangeRenderTexture);
+            bluePortalHandler.EnableCamera();
+            bluePortalHandler.AssignMaterial(blueMaterial);
 
-            orangePortal.GetComponent<PortalTravel>().OtherPortal = bluePortal.transform;
-            tmpCam = orangePortal.GetComponentInChildren<Camera>();
-            tmpCam.targetTexture = blueRenderTexture;
-            tmpCam.enabled = true;
-            orangeMeshRenderer.material = orangeMaterial;
+            orangePortalHandler.AssignOtherPortal(bluePortalHandler.GetPortalTravel());
+            orangePortalHandler.AssignTargetRenderTexture(blueRenderTexture);
+            orangePortalHandler.EnableCamera();
+            orangePortalHandler.AssignMaterial(orangeMaterial);
         }
     }
 }

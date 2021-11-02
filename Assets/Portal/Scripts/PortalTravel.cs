@@ -2,9 +2,19 @@ using UnityEngine;
 
 public class PortalTravel : MonoBehaviour
 {
-    public Transform spawnPosition;
+    public Transform spawnPosition, mainCmaera, overlayCamera;
 
-    public Transform OtherPortal { get; set; }
+    public PortalTravel OtherPortal { get; set; }
+
+    private void Update()
+    {
+        if (OtherPortal == null)
+        {
+            return;
+        }
+
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,7 +25,7 @@ public class PortalTravel : MonoBehaviour
         // prepare object
         IPortable portable = other.GetComponent<IPortable>();
         portable.IsPorting = true;
-        portable.PortingDirection = OtherPortal.up;
+        portable.PortingDirection = OtherPortal.transform.up;
         portable.PortingFromDirection = transform.up;
 
         Rigidbody rb = other.GetComponent<Rigidbody>();
@@ -25,8 +35,13 @@ public class PortalTravel : MonoBehaviour
         // rotation
         float playerAngleDiff = Vector3.SignedAngle(transform.forward * -1, other.transform.forward, Vector3.up);
         float x = rb.rotation.eulerAngles.x;
-        float y = OtherPortal.rotation.eulerAngles.y;
+        float y = OtherPortal.transform.rotation.eulerAngles.y;
         float z = rb.rotation.eulerAngles.z;
         rb.rotation = Quaternion.Euler(x, y + playerAngleDiff, z);
+    }
+
+    public Vector3 GetCenter()
+    {
+        return mainCmaera.position;
     }
 }

@@ -148,7 +148,7 @@ MonoBehaviour:
   orangeDefaultMaterial: {fileID: 2100000, guid: e16272948bddaf248bf51c92d2404088, type: 2}
   blueMaterial: {fileID: 2100000, guid: 57cad991efd4c634f9fbb5b3a761f085, type: 2}
   orangeMaterial: {fileID: 2100000, guid: b67676e55fc2a8c42b2b2be6898121a8, type: 2}
-  portalPrefab: {fileID: 4533013771593039148, guid: 1401ce99a11788d49a64d08f89a10a02, type: 3}
+  portalPrefab: {fileID: 273133636374704099, guid: 03e99b778434485409e8f92e30c5c391, type: 3}
 --- !u!1 &5485568949664331956
 GameObject:
   m_ObjectHideFlags: 0
