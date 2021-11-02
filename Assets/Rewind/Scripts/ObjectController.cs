@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ObjectController : Controller, ITimeControlable
 {
-    public bool IsFocused { get; set; }
-
     private void Start()
     {
         GetRigidBody();
@@ -26,5 +24,6 @@ public class ObjectController : Controller, ITimeControlable
         }
     }
 
-    
+
+    public bool IsFocused { get; set; }
 }

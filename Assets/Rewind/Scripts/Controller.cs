@@ -9,6 +9,8 @@ public class Controller: MonoBehaviour
     private StateCollection _statesOverTime;
     private TimeReverser timeReverser;
     private StateRecorder stateRecorder;
+    private FreezeForceRecorder freezeForceRecorder;
+
 
     protected void InitStateHandling()
     {
@@ -16,6 +18,8 @@ public class Controller: MonoBehaviour
         
         timeReverser = new TimeReverser(_rb, _statesOverTime);
         stateRecorder = new StateRecorder(_rb, _statesOverTime);
+        
+        freezeForceRecorder = new FreezeForceRecorder(_rb);
     }
 
     protected void GetRigidBody()
@@ -68,13 +72,14 @@ public class Controller: MonoBehaviour
         _rewind = false;
         _rb.useGravity = true;
         _rb.isKinematic = false;
+        
+        freezeForceRecorder.UnFreeze();
     }
     
     protected void Freeze()
     {
-            _rewind = false;
-            _rb.useGravity = false;
-            _rb.isKinematic = true;
+        _rewind = false;
+        freezeForceRecorder.Freeze();
     }
 
     private void FixedUpdate()
@@ -89,4 +94,10 @@ public class Controller: MonoBehaviour
         }
     }
     
+    void OnCollisionEnter(Collision collision)
+    {
+        freezeForceRecorder.AddForce(collision.relativeVelocity);
+    }
+
+   
 }

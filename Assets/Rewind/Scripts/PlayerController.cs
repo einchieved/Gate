@@ -31,7 +31,7 @@ public class PlayerController : Controller
     void Update()
     {
         HandleMovement();
-        HandleRewind(KeyCode.Q, KeyCode.W);
+        //HandleRewind(KeyCode.Q, KeyCode.W);
     }
 
     void FixedUpdate()
