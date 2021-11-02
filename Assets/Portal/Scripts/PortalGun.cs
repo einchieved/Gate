@@ -33,6 +33,7 @@ public class PortalGun : MonoBehaviour
             bluePortalHandler = bluePortal.GetComponent<PortalParentHandler>();
             bluePortalHandler.AssignMaterial(blueDefaultMaterial);
             bluePortalHandler.DisableCamera();
+            bluePortalHandler.AssignPlayer(transform);
             UpdatePortals();
 
             return;
@@ -49,6 +50,7 @@ public class PortalGun : MonoBehaviour
             orangePortalHandler = orangePortal.GetComponent<PortalParentHandler>();
             orangePortalHandler.AssignMaterial(orangeDefaultMaterial);
             orangePortalHandler.DisableCamera();
+            orangePortalHandler.AssignPlayer(transform);
             UpdatePortals();
         }
     }

@@ -33,6 +33,12 @@ public class PortalParentHandler : MonoBehaviour
         meshRenderer.material = newMaterial;
     }
 
+    public void AssignPlayer(Transform player)
+    {
+        Init();
+        portalTravelScript.Player = player;
+    }
+
     public void EnableCamera()
     {
         Init();
