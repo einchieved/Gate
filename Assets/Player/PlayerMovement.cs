@@ -37,6 +37,12 @@ public class PlayerMovement : MonoBehaviour,  IPortable
         xRotation -= (mouseY * Time.deltaTime);
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        // jump
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+        }
     }
 
     private void FixedUpdate()
