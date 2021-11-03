@@ -23,12 +23,18 @@ public class PortalTravel : MonoBehaviour
             return;
         }
 
-        Vector3 otherCenter = OtherPortal.GetRotationCenter();
-        Vector3 delta = otherCenter - Player.position;
-        float angleRotateY = Vector3.SignedAngle(transform.up * -1, delta, Vector3.up);
+        Debug.DrawLine(transform.position, Player.position, Color.green, Time.deltaTime);
+        Debug.DrawRay(transform.position, transform.up * 10, Color.red, Time.deltaTime);
+
         overlayCamera.rotation = overlayCamStartRotation;
         overlayCamera.position = overlayCamStartPosition;
-        overlayCamera.RotateAround(transform.position, Vector3.up, angleRotateY);
+        overlayCamera.RotateAround(transform.position, transform.forward, OtherPortal.GetPlayerAngleDiffY());
+        overlayCamera.RotateAround(transform.position, transform.right, OtherPortal.GetPlayerAngleDiffX() * -1);
+        /*Vector3 eulerAngles = overlayCamera.localEulerAngles;
+        eulerAngles.x = 0;
+        overlayCamera.localEulerAngles = eulerAngles;*/
+        //overlayCamera.LookAt(transform.position, transform.forward);
+        overlayCamera.right = new Vector3(overlayCamera.right.x, 0, overlayCamera.right.z);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,5 +64,32 @@ public class PortalTravel : MonoBehaviour
     public Vector3 GetRotationCenter()
     {
         return transform.position;
+    }
+
+    public Vector3 GetForward()
+    {
+        return transform.up;
+    }
+
+    public float GetPlayerAngleDiffY()
+    {
+        Vector3 delta = Player.position - transform.position;
+        Vector3 planeProjection = transform.up + transform.right;
+        Vector3 planeDelta = Vector3.zero;
+        planeDelta.x = delta.x * Mathf.Abs(planeProjection.x);
+        planeDelta.y = delta.y * Mathf.Abs(planeProjection.y);
+        planeDelta.z = delta.z * Mathf.Abs(planeProjection.z);
+        return Vector3.SignedAngle(transform.up, planeDelta, transform.forward);
+    }
+
+    public float GetPlayerAngleDiffX()
+    {
+        Vector3 delta = Player.position - transform.position;
+        Vector3 planeProjection = transform.up + transform.forward;
+        Vector3 planeDelta = Vector3.zero;
+        planeDelta.x = delta.x * Mathf.Abs(planeProjection.x);
+        planeDelta.y = delta.y * Mathf.Abs(planeProjection.y);
+        planeDelta.z = delta.z * Mathf.Abs(planeProjection.z);
+        return Vector3.SignedAngle(transform.up, planeDelta, transform.right);
     }
 }
