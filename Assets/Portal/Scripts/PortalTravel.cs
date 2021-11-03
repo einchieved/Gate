@@ -30,11 +30,11 @@ public class PortalTravel : MonoBehaviour
         overlayCamera.position = overlayCamStartPosition;
         overlayCamera.RotateAround(transform.position, transform.forward, OtherPortal.GetPlayerAngleDiffY());
         overlayCamera.RotateAround(transform.position, transform.right, OtherPortal.GetPlayerAngleDiffX() * -1);
-        /*Vector3 eulerAngles = overlayCamera.localEulerAngles;
-        eulerAngles.x = 0;
-        overlayCamera.localEulerAngles = eulerAngles;*/
-        //overlayCamera.LookAt(transform.position, transform.forward);
-        overlayCamera.right = new Vector3(overlayCamera.right.x, 0, overlayCamera.right.z);
+
+        if (overlayCamera.parent.up == Vector3.up)
+        {
+            overlayCamera.right = new Vector3(overlayCamera.right.x, 0, overlayCamera.right.z);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,24 +51,15 @@ public class PortalTravel : MonoBehaviour
 
         Rigidbody rb = other.GetComponent<Rigidbody>();
         // position
-        //rb.position = OtherPortal.position + OtherPortal.forward * 2;
-        rb.position = OtherPortal.GetComponent<PortalTravel>().spawnPosition.position;
+        rb.position = OtherPortal.spawnPosition.position;
         // rotation
-        float playerAngleDiff = Vector3.SignedAngle(transform.forward * -1, other.transform.forward, Vector3.up);
-        float x = rb.rotation.eulerAngles.x;
+        float playerAngleDiff = Vector3.SignedAngle(transform.up * -1, other.transform.forward, Vector3.up);
+        /*float x = rb.rotation.eulerAngles.x;
         float y = OtherPortal.transform.rotation.eulerAngles.y;
         float z = rb.rotation.eulerAngles.z;
-        rb.rotation = Quaternion.Euler(x, y + playerAngleDiff, z);
-    }
-
-    public Vector3 GetRotationCenter()
-    {
-        return transform.position;
-    }
-
-    public Vector3 GetForward()
-    {
-        return transform.up;
+        rb.rotation = Quaternion.Euler(x, y + playerAngleDiff, z);*/
+        rb.transform.forward = OtherPortal.transform.up;
+        rb.transform.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.World);
     }
 
     public float GetPlayerAngleDiffY()
