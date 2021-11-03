@@ -73,18 +73,19 @@ public class PlayerMovement : MonoBehaviour,  IPortable
         float updater;
         if (x > y && x > z)
         {
-            updater = Mathf.Clamp(lastVelocity.x, -maxFallSpeed, maxFallSpeed); ;
+            updater = Mathf.Clamp(Mathf.Abs(lastVelocity.x), 0, maxFallSpeed); ;
         }
         else if (y > z)
         {
-            updater = Mathf.Clamp(lastVelocity.y, -maxFallSpeed, maxFallSpeed);
+            updater = Mathf.Clamp(Mathf.Abs(lastVelocity.y), 0, maxFallSpeed);
         }
         else
         {
-            updater = Mathf.Clamp(lastVelocity.z, -maxFallSpeed, maxFallSpeed);
+            updater = Mathf.Clamp(Mathf.Abs(lastVelocity.z), 0, maxFallSpeed);
         }
 
         // find exit dir;
+        Vector3 change = PortingDirection * updater;/*
         x = Mathf.Abs(PortingDirection.x);
         y = Mathf.Abs(PortingDirection.y);
         z = Mathf.Abs(PortingDirection.z);
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
         else
         {
             change.z = updater;
-        }
+        }*/
 
         return change;
     }
