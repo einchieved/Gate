@@ -66,5 +66,7 @@ public class PlayerMovementPUN : MonoBehaviourPun
         // look
         float yRotation = mouseX * Time.fixedDeltaTime + rb.rotation.eulerAngles.y;
         rb.MoveRotation(Quaternion.Euler(Vector3.up * yRotation));
+        
+        
     }
 }
