@@ -5,12 +5,12 @@ using UnityEngine;
 public class TimeReverserPUN
 {
     private Rigidbody _rb;
-    private StateCollection _statesOverTime;
+    private StateCollectionPUN _statesOverTime;
     private DateTime timeOfMeasurement;
-    public State CurrentState { get; set; }
+    public StatePUN CurrentState { get; set; }
 
 
-    public TimeReverserPUN(Rigidbody rb, StateCollection statesOverTime)
+    public TimeReverserPUN(Rigidbody rb, StateCollectionPUN statesOverTime)
     {
         _rb = rb;
         _statesOverTime = statesOverTime;

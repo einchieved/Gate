@@ -16,13 +16,7 @@ public class FreezeForceRecorderPUN
     {
         storedImpuls += force;
     }
-    
-    public void Freeze()
-    {
-        _rigidbody.useGravity = false;
-        _rigidbody.isKinematic = true;
-    }
-    
+
     public void UnFreeze()
     {
         _rigidbody.AddForce(storedImpuls);

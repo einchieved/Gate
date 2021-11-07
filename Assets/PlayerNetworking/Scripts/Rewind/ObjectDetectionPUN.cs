@@ -65,7 +65,7 @@ public class ObjectDetectionPUN
 
     private void EnableTimeManipulation(GameObject gameObject)
     {
-        ITimeControlable controlableObject = gameObject.GetComponent<ITimeControlable>();
+        ITimeControlablePUN controlableObject = gameObject.GetComponent<ITimeControlablePUN>();
 
         if (controlableObject != null)
         {

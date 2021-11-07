@@ -1,25 +1,26 @@
 using DefaultNamespace;
+using Photon.Pun;
 using UnityEngine;
 
-public class ControllerPUN: MonoBehaviour
+public class ControllerPUN: MonoBehaviourPun
 {
     protected Rigidbody _rb;
     protected bool _rewind;
     
-    private StateCollection _statesOverTime;
-    private TimeReverser timeReverser;
-    private StateRecorder stateRecorder;
-    private FreezeForceRecorder freezeForceRecorder;
+    private StateCollectionPUN _statesOverTime;
+    private TimeReverserPUN timeReverser;
+    private StateRecorderPUN stateRecorder;
+    private FreezeForceRecorderPUN freezeForceRecorder;
 
 
     protected void InitStateHandling()
     {
-        _statesOverTime = new StateCollection();
+        _statesOverTime = new StateCollectionPUN();
         
-        timeReverser = new TimeReverser(_rb, _statesOverTime);
-        stateRecorder = new StateRecorder(_rb, _statesOverTime);
+        timeReverser = new TimeReverserPUN(_rb, _statesOverTime);
+        stateRecorder = new StateRecorderPUN(_rb, _statesOverTime);
         
-        freezeForceRecorder = new FreezeForceRecorder(_rb);
+        freezeForceRecorder = new FreezeForceRecorderPUN(_rb);
     }
 
     protected void GetRigidBody()
@@ -49,7 +50,7 @@ public class ControllerPUN: MonoBehaviour
 
     private void AdaptState()
     {
-        State lastState = timeReverser.CurrentState;
+        StatePUN lastState = timeReverser.CurrentState;
 
         if (_rb != null && lastState != null)
         {
@@ -78,8 +79,7 @@ public class ControllerPUN: MonoBehaviour
     
     protected void Freeze()
     {
-        _rewind = false;
-        freezeForceRecorder.Freeze();
+        photonView.RPC(nameof(FreezeAll), RpcTarget.AllViaServer);        
     }
 
     private void FixedUpdate()
@@ -94,9 +94,18 @@ public class ControllerPUN: MonoBehaviour
         }
     }
     
+    /*
     void OnCollisionEnter(Collision collision)
     {
         freezeForceRecorder.AddForce(collision.relativeVelocity);
+    }
+    */
+
+    protected virtual void FreezeAll()
+    {
+        _rewind = false;
+        _rb.useGravity = false;
+        _rb.isKinematic = true;
     }
 
    
