@@ -2,15 +2,21 @@ using UnityEngine;
 
 public class PortalGun : MonoBehaviour
 {
-    public Material blueMaterial, orangeMaterial;
+    public Material blueDefaultMaterial, orangeDefaultMaterial, blueMaterial, orangeMaterial;
     public GameObject portalPrefab;
 
     private GameObject bluePortal, orangePortal;
+    private PortalParentHandler bluePortalHandler, orangePortalHandler;
+    private RenderTexture blueRenderTexture, orangeRenderTexture;
     private Transform cam;
 
     private void Start()
     {
         cam = GetComponentInChildren<Camera>().transform;
+        blueRenderTexture = new RenderTexture(512, 1024, 24);
+        blueMaterial.SetTexture("Texture2D_e963585dc5b44a5b86d21edb99ea03f2", blueRenderTexture);
+        orangeRenderTexture = new RenderTexture(512, 1024, 24);
+        orangeMaterial.SetTexture("Texture2D_e963585dc5b44a5b86d21edb99ea03f2", orangeRenderTexture);
     }
 
     // Update is called once per frame
@@ -24,21 +30,27 @@ public class PortalGun : MonoBehaviour
                 Destroy(bluePortal);
             }
             bluePortal = newBluePortal;
-            bluePortal.GetComponent<MeshRenderer>().material = blueMaterial;
+            bluePortalHandler = bluePortal.GetComponent<PortalParentHandler>();
+            bluePortalHandler.AssignMaterial(blueDefaultMaterial);
+            bluePortalHandler.DisableCamera();
+            bluePortalHandler.AssignPlayer(transform);
             UpdatePortals();
 
             return;
         }
 
         // place orange portal
-        if (Input.GetKeyDown(KeyCode.Mouse1) && CreatePortal(out GameObject neworangePortal))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && CreatePortal(out GameObject newOrangePortal))
         {
             if (orangePortal != null)
             {
                 Destroy(orangePortal);
             }
-            orangePortal = neworangePortal;
-            orangePortal.GetComponent<MeshRenderer>().material = orangeMaterial;
+            orangePortal = newOrangePortal;
+            orangePortalHandler = orangePortal.GetComponent<PortalParentHandler>();
+            orangePortalHandler.AssignMaterial(orangeDefaultMaterial);
+            orangePortalHandler.DisableCamera();
+            orangePortalHandler.AssignPlayer(transform);
             UpdatePortals();
         }
     }
@@ -54,13 +66,17 @@ public class PortalGun : MonoBehaviour
             return false;
         }
 
-        newPortal = Instantiate(portalPrefab, hitInfo.point, hitInfo.transform.rotation);
+        Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.01f;
+        newPortal = Instantiate(portalPrefab, newPortalPosition, Quaternion.identity);
+        // adjust rotation
+        newPortal.transform.forward = hitInfo.transform.up * -1;
         // adjust portal rotation to player rotation
         if (targetLayer == 9)
         {
             Vector3 eulerAngles = newPortal.transform.rotation.eulerAngles;
-            newPortal.transform.rotation = Quaternion.Euler(eulerAngles.x, transform.rotation.eulerAngles.y + 180, eulerAngles.z);
+            newPortal.transform.rotation = Quaternion.Euler(eulerAngles.x, transform.rotation.eulerAngles.y, eulerAngles.z);
         }
+
         return true;
     }
 
@@ -68,8 +84,15 @@ public class PortalGun : MonoBehaviour
     {
         if (orangePortal != null && bluePortal != null)
         {
-            bluePortal.GetComponent<PortalTravel>().OtherPortal = orangePortal.transform;
-            orangePortal.GetComponent<PortalTravel>().OtherPortal = bluePortal.transform;
+            bluePortalHandler.AssignOtherPortal(orangePortalHandler.GetPortalTravel());
+            bluePortalHandler.AssignTargetRenderTexture(orangeRenderTexture);
+            bluePortalHandler.EnableCamera();
+            bluePortalHandler.AssignMaterial(blueMaterial);
+
+            orangePortalHandler.AssignOtherPortal(bluePortalHandler.GetPortalTravel());
+            orangePortalHandler.AssignTargetRenderTexture(blueRenderTexture);
+            orangePortalHandler.EnableCamera();
+            orangePortalHandler.AssignMaterial(orangeMaterial);
         }
     }
 }
