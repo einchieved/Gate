@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Launcher.unity
+    guid: f4d8283ac570040738906d1f045635b9
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Room1.unity
+    guid: 370ab8baf105e478d872e99831bde4ef
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Room2.unity
+    guid: 5d7b5b25e2fd2404b96d6b5e34d55c84
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Room3.unity
+    guid: d289f3fed0b424729949c8541c3ddd43
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Room4.unity
+    guid: f1aa1142edd194c7e95b64b15bb1f26f
   m_configObjects: {}
