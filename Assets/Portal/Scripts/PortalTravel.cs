@@ -1,4 +1,5 @@
 using UnityEngine;
+using static IPortable;
 
 public class PortalTravel : MonoBehaviour
 {
@@ -45,21 +46,27 @@ public class PortalTravel : MonoBehaviour
         }
         // prepare object
         IPortable portable = other.GetComponent<IPortable>();
-        portable.IsPorting = true;
-        portable.PortingDirection = OtherPortal.transform.up;
-        portable.PortingFromDirection = transform.up;
+        if (portable == null || portable.IsClone)
+        {
+            return;
+        }
 
-        Rigidbody rb = other.GetComponent<Rigidbody>();
+        portable.CurrentPortingState = PortingState.Started;
+        portable.PortingPortal = transform;
+        portable.PortingMovement.PortingDirection = OtherPortal.transform.up;
+        portable.PortingMovement.PortingFromDirection = transform.up;
+
+        //Rigidbody rb = other.GetComponent<Rigidbody>();
         // position
-        rb.position = OtherPortal.spawnPosition.position;
+        //rb.position = OtherPortal.spawnPosition.position;
         // rotation
-        float playerAngleDiff = Vector3.SignedAngle(transform.up * -1, other.transform.forward, Vector3.up);
+        //float playerAngleDiff = Vector3.SignedAngle(transform.up * -1, other.transform.forward, Vector3.up);
         /*float x = rb.rotation.eulerAngles.x;
         float y = OtherPortal.transform.rotation.eulerAngles.y;
         float z = rb.rotation.eulerAngles.z;
         rb.rotation = Quaternion.Euler(x, y + playerAngleDiff, z);*/
-        rb.transform.forward = OtherPortal.transform.up;
-        rb.transform.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.World);
+        //rb.transform.forward = OtherPortal.transform.up;
+        //rb.transform.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.World);
     }
 
     public float GetPlayerAngleDiffY()

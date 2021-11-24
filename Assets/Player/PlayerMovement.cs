@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static IPortable;
 
 public class PlayerMovement : MonoBehaviour,  IPortable
 {
@@ -12,22 +11,34 @@ public class PlayerMovement : MonoBehaviour,  IPortable
     private float xRotation = 0f;
     private Rigidbody rb;
     private float vertical, horizontal, mouseX, mouseY;
-    private Vector3 lastVelocity;
+    private PortingMovement portingMovement;
 
-    public bool IsPorting { get; set; }
-    public Vector3 PortingDirection { get; set; }
-    public Vector3 PortingFromDirection { get; set; }
+    public PortingState CurrentPortingState { get; set; }
+    public bool IsClone { get; set; }
+    PortingMovement IPortable.PortingMovement => portingMovement;
+    public Transform PortingPortal { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        IsPorting = false;
+        portingMovement = GetComponent<PortingMovement>();
+        CurrentPortingState = PortingState.Ended;
+        if (IsClone)
+        {
+            cam.GetComponent<Camera>().enabled = false;
+            cam.GetComponent<AudioListener>().enabled = false;
+            rb.isKinematic = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (IsClone)
+        {
+            return;
+        }
         // move
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
@@ -47,14 +58,55 @@ public class PlayerMovement : MonoBehaviour,  IPortable
 
     private void FixedUpdate()
     {
-        if (IsPorting)
+        if (IsClone)
         {
-            IsPorting = false;
-            rb.velocity = DeterminePortingVelocity();
+            return;
+        }
+        if (CurrentPortingState != PortingState.Ended)
+        {
+            switch (CurrentPortingState)
+            {
+                case PortingState.Started:
+                    PortalTravel pt = PortingPortal.GetComponent<PortalTravel>();
+                    Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
+                    portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
+                    CurrentPortingState = PortingState.InProgress;
+                    break;
+                case PortingState.InProgress:
+                    Move();
+                    portingMovement.UpdateClone();
+                    break;
+                case PortingState.EndingPositive:
+                    portingMovement.TransferControlToClone();
+                    CurrentPortingState = PortingState.Ended;
+                    break;
+                case PortingState.EndingNegative:
+                    portingMovement.DestroyClone();
+                    CurrentPortingState = PortingState.Ended;
+                    break;
+            }
             return;
         }
 
-        lastVelocity = rb.velocity;
+        Move();
+    }
+
+    public void Declonify(GameObject oldGameObject)
+    {
+        IsClone = false;
+        cam.GetComponent<Camera>().enabled = true;
+        cam.GetComponent<AudioListener>().enabled = true;
+        rb.isKinematic = false;
+
+        PortalGun pg = GetComponent<PortalGun>();
+        PortalGun oldPg = oldGameObject.GetComponent<PortalGun>();
+        pg.BluePortalHandler = oldPg.BluePortalHandler;
+        pg.OrangePortalHandler = oldPg.OrangePortalHandler;
+        pg.AssignNewPlayer();
+    }
+
+    private void Move()
+    {
         // move
         Vector3 motionDelta = Vector3.zero + transform.right * horizontal + transform.forward * vertical;
         motionDelta = motionDelta * speed * Time.fixedDeltaTime;
@@ -62,47 +114,16 @@ public class PlayerMovement : MonoBehaviour,  IPortable
         // look
         float yRotation = mouseX * Time.fixedDeltaTime + rb.rotation.eulerAngles.y;
         rb.MoveRotation(Quaternion.Euler(Vector3.up * yRotation));
+
+        ClampVelocity();
     }
 
-    private Vector3 DeterminePortingVelocity()
+    private void ClampVelocity()
     {
-        // find origin dir
-        float x = Mathf.Abs(PortingFromDirection.x);
-        float y = Mathf.Abs(PortingFromDirection.y);
-        float z = Mathf.Abs(PortingFromDirection.z);
-        float updater;
-        if (x > y && x > z)
-        {
-            updater = Mathf.Clamp(Mathf.Abs(lastVelocity.x), 0, maxFallSpeed); ;
-        }
-        else if (y > z)
-        {
-            updater = Mathf.Clamp(Mathf.Abs(lastVelocity.y), 0, maxFallSpeed);
-        }
-        else
-        {
-            updater = Mathf.Clamp(Mathf.Abs(lastVelocity.z), 0, maxFallSpeed);
-        }
-
-        // find exit dir;
-        Vector3 change = PortingDirection * updater;/*
-        x = Mathf.Abs(PortingDirection.x);
-        y = Mathf.Abs(PortingDirection.y);
-        z = Mathf.Abs(PortingDirection.z);
-        Vector3 change = Vector3.zero;
-        if (x > y && x > z)
-        {
-            change.x = updater;
-        }
-        else if (y > z)
-        {
-            change.y = updater;
-        }
-        else
-        {
-            change.z = updater;
-        }*/
-
-        return change;
+        Vector3 vel = rb.velocity;
+        vel.x = Mathf.Clamp(vel.x, -maxFallSpeed, maxFallSpeed);
+        vel.y = Mathf.Clamp(vel.y, -maxFallSpeed, maxFallSpeed);
+        vel.z = Mathf.Clamp(vel.z, -maxFallSpeed, maxFallSpeed);
+        rb.velocity = vel;
     }
 }
