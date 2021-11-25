@@ -58,6 +58,7 @@ public class PortingMovement : MonoBehaviour
         clone = Instantiate(cloneGameObject, clonePortal.position, Quaternion.identity).transform;
         clone.GetComponent<IPortable>().IsClone = true;
         clone.parent = clonePortal;
+        clone.gameObject.layer = 13; //ClonePlayer
         UpdateClone();
     }
 

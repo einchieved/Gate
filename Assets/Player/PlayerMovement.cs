@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
                     break;
                 case PortingState.EndingNegative:
                     portingMovement.DestroyClone();
-                    gameObject.layer = 3;
+                    gameObject.layer = 3; //Player
                     CurrentPortingState = PortingState.Ended;
                     break;
             }
@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
         pg.BluePortalHandler = oldPg.BluePortalHandler;
         pg.OrangePortalHandler = oldPg.OrangePortalHandler;
         pg.AssignNewPlayer();
+        gameObject.layer = 3; //Player
     }
 
     private void Move()
