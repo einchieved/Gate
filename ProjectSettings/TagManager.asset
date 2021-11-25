@@ -8,7 +8,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Time
@@ -16,10 +16,7 @@ TagManager:
   - CubeTime
   - FreePortalPlacement
   - FixedPortalPlacement
-  - 
-  - 
-  - 
-  - 
+  - PortalBoundary
   - 
   - 
   - 

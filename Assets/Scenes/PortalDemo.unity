@@ -1040,21 +1040,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 930722519634637019, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: orangedefaultMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: e16272948bddaf248bf51c92d2404088, type: 2}
     - target: {fileID: 974491610685543987, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
       propertyPath: m_Name
       value: DemoPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 974491610685543987, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1867433148311454211, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
-      propertyPath: playerBody
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5314539713891075264, guid: b50ce074ad78c8c4bb984bc756b34235, type: 3}
       propertyPath: m_RootOrder

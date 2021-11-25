@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
                     PortalTravel pt = PortingPortal.GetComponent<PortalTravel>();
                     Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
                     portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
+                    gameObject.layer = 12;
                     CurrentPortingState = PortingState.InProgress;
                     break;
                 case PortingState.InProgress:
@@ -82,6 +83,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
                     break;
                 case PortingState.EndingNegative:
                     portingMovement.DestroyClone();
+                    gameObject.layer = 3;
                     CurrentPortingState = PortingState.Ended;
                     break;
             }

@@ -34,7 +34,7 @@ public class PortingMovement : MonoBehaviour
     {
         if (clone != null)
         {
-            Destroy(clone);
+            Destroy(clone.gameObject);
         }
     }
 
