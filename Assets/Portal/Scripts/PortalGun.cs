@@ -103,7 +103,7 @@ public class PortalGun : MonoBehaviour
         }
     }
 
-    public void AssignNewPlayer()
+    public void AssignCurrentPlayerToPortals()
     {
         bluePortalHandler.AssignPlayer(transform);
         orangePortalHandler.AssignPlayer(transform);

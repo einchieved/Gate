@@ -53,8 +53,8 @@ public class PortalTravel : MonoBehaviour
 
         portable.CurrentPortingState = PortingState.Started;
         portable.PortingPortal = transform;
-        portable.PortingMovement.PortingDirection = OtherPortal.transform.up;
-        portable.PortingMovement.PortingFromDirection = transform.up;
+        portable.PortingMvmnt.PortingDirection = OtherPortal.transform.up;
+        portable.PortingMvmnt.PortingFromDirection = transform.up;
 
         //Rigidbody rb = other.GetComponent<Rigidbody>();
         // position

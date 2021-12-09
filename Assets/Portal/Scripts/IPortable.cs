@@ -14,7 +14,7 @@ public interface IPortable
     public PortingState CurrentPortingState { get; set; }
     public bool IsClone { get; set; }
     public Transform PortingPortal {get; set; }
-    public PortingMovement PortingMovement { get; }
+    public PortingMovement PortingMvmnt { get; }
 
     public void Declonify(GameObject oldGameObject);
 }

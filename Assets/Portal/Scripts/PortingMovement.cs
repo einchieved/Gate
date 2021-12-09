@@ -8,6 +8,9 @@ public class PortingMovement : MonoBehaviour
 
     public Vector3 PortingDirection { get; set; }
     public Vector3 PortingFromDirection { get; set; }
+    public Transform Clone { get => clone; set => clone = value; }
+    public Transform OriginalPortal { get => originalPortal; set => originalPortal = value; }
+    public Transform ClonePortal { get => clonePortal; set => clonePortal = value; }
 
     private Rigidbody rb;
     private Vector3 lastvelocity;
@@ -17,12 +20,6 @@ public class PortingMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -40,10 +37,25 @@ public class PortingMovement : MonoBehaviour
 
     public void TransferControlToClone()
     {
-        clone.GetComponent<IPortable>().Declonify(gameObject);
+        IPortable clonePortable = clone.GetComponent<IPortable>();
+        clonePortable.Declonify(gameObject);
+        clonePortable.CurrentPortingState = IPortable.PortingState.InProgress;
         clone.parent = null;
         clone.GetComponent<Rigidbody>().velocity = DeterminePortingVelocity();
-        Destroy(gameObject);
+        MakeToClone();
+        //Assign Clone
+        PortingMovement clonePm = clonePortable.PortingMvmnt;
+        clonePm.Clone = transform;
+        //Assign Portals
+        clonePm.ClonePortal = originalPortal;
+        clonePm.OriginalPortal = clonePortal;
+    }
+
+    public void MakeToClone()
+    {
+        gameObject.layer = 13; //ClonePlayer
+        transform.parent = originalPortal;
+        GetComponent<IPortable>().IsClone = true;
     }
 
     public void InstantiateClone(Transform originalPortal, Transform clonePortal)
@@ -52,7 +64,6 @@ public class PortingMovement : MonoBehaviour
         {
             return;
         }
-        //rb.isKinematic = true;
         this.originalPortal = originalPortal;
         this.clonePortal = clonePortal;
         clone = Instantiate(cloneGameObject, clonePortal.position, Quaternion.identity).transform;

@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
 
     public PortingState CurrentPortingState { get; set; }
     public bool IsClone { get; set; }
-    PortingMovement IPortable.PortingMovement => portingMovement;
+    public PortingMovement PortingMvmnt => portingMovement;
     public Transform PortingPortal { get; set; }
 
     // Start is called before the first frame update
@@ -96,16 +96,21 @@ public class PlayerMovement : MonoBehaviour,  IPortable
     public void Declonify(GameObject oldGameObject)
     {
         IsClone = false;
+        rb.isKinematic = false;
+        //Camera Handling
         cam.GetComponent<Camera>().enabled = true;
         cam.GetComponent<AudioListener>().enabled = true;
-        rb.isKinematic = false;
+        oldGameObject.GetComponentInChildren<Camera>().enabled = false;
+        oldGameObject.GetComponentInChildren<AudioListener>().enabled = false;
 
         PortalGun pg = GetComponent<PortalGun>();
         PortalGun oldPg = oldGameObject.GetComponent<PortalGun>();
         pg.BluePortalHandler = oldPg.BluePortalHandler;
         pg.OrangePortalHandler = oldPg.OrangePortalHandler;
-        pg.AssignNewPlayer();
-        gameObject.layer = 3; //Player
+        pg.AssignCurrentPlayerToPortals();
+        gameObject.layer = 12; //PortingPlayer   
+
+        PortingPortal = oldGameObject.GetComponent<IPortable>().PortingPortal.GetComponent<PortalTravel>().OtherPortal.transform;
     }
 
     private void Move()
