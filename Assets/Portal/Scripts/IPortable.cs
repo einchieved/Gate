@@ -1,8 +1,20 @@
 ﻿using UnityEngine;
 
-interface IPortable
+public interface IPortable
 {
-    public bool IsPorting { get; set; }
-    public Vector3 PortingDirection { get; set; }
-    public Vector3 PortingFromDirection { get; set; }
+    public enum PortingState
+    {
+        Started,
+        InProgress,
+        EndingPositive,
+        EndingNegative,
+        Ended
+    }
+
+    public PortingState CurrentPortingState { get; set; }
+    public bool IsClone { get; set; }
+    public Transform PortingPortal {get; set; }
+    public PortingMovement PortingMvmnt { get; }
+
+    public void Declonify(GameObject oldGameObject);
 }

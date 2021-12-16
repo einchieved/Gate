@@ -10,9 +10,16 @@ public class PortalGun : MonoBehaviour
     private RenderTexture blueRenderTexture, orangeRenderTexture;
     private Transform cam;
 
+    public PortalParentHandler BluePortalHandler { get => bluePortalHandler; set => bluePortalHandler = value; }
+    public PortalParentHandler OrangePortalHandler { get => orangePortalHandler; set => orangePortalHandler = value; }
+
     private void Start()
     {
         cam = GetComponentInChildren<Camera>().transform;
+        if (GetComponent<IPortable>().IsClone)
+        {
+            return;
+        }
         blueRenderTexture = new RenderTexture(512, 1024, 24);
         blueMaterial.SetTexture("Texture2D_e963585dc5b44a5b86d21edb99ea03f2", blueRenderTexture);
         orangeRenderTexture = new RenderTexture(512, 1024, 24);
@@ -94,5 +101,11 @@ public class PortalGun : MonoBehaviour
             orangePortalHandler.EnableCamera();
             orangePortalHandler.AssignMaterial(orangeMaterial);
         }
+    }
+
+    public void AssignCurrentPlayerToPortals()
+    {
+        bluePortalHandler.AssignPlayer(transform);
+        orangePortalHandler.AssignPlayer(transform);
     }
 }
