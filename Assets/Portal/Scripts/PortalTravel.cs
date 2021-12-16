@@ -24,8 +24,8 @@ public class PortalTravel : MonoBehaviour
             return;
         }
 
-        Debug.DrawLine(transform.position, Player.position, Color.green, Time.deltaTime);
-        Debug.DrawRay(transform.position, transform.up * 10, Color.red, Time.deltaTime);
+        //Debug.DrawLine(transform.position, Player.position, Color.green, Time.deltaTime);
+        //Debug.DrawRay(transform.position, transform.up * 10, Color.red, Time.deltaTime);
 
         overlayCamera.rotation = overlayCamStartRotation;
         overlayCamera.position = overlayCamStartPosition;

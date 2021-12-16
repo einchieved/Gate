@@ -10,6 +10,8 @@ public class ReverseTransferControl : MonoBehaviour
         IPortable portable = other.GetComponent<IPortable>();
         if (portable != null && portable.CurrentPortingState == PortingState.InProgress)
         {
+            portable.CurrentPortingState = PortingState.EndingPositive;
+            /*
             if (coll == null)
             {
                 coll = other;
@@ -18,7 +20,7 @@ public class ReverseTransferControl : MonoBehaviour
             {
                 portable.CurrentPortingState = PortingState.EndingPositive;
                 coll = null;
-            }
+            }*/
         }
     }
 }
