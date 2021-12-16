@@ -55,6 +55,7 @@ public class PortingMovement : MonoBehaviour
     {
         gameObject.layer = 13; //ClonePlayer
         transform.parent = originalPortal;
+        rb.isKinematic = true;
         GetComponent<IPortable>().IsClone = true;
     }
 
@@ -96,7 +97,7 @@ public class PortingMovement : MonoBehaviour
     {
         float playerAngleDiff = Vector3.SignedAngle(originalPortal.up * -1, transform.forward, Vector3.up);
         clone.forward = clonePortal.up;
-        //clone.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.Self);
+        clone.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.Self);
     }
 
     private Vector3 DeterminePortingVelocity()

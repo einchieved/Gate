@@ -8,7 +8,7 @@ public class PortalTransferControl : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IPortable portable = other.GetComponent<IPortable>();
-        if (portable != null && portable.CurrentPortingState == PortingState.Ended)
+        if (portable != null && CurrentStateOK(portable))
         {
             coll = other;
         }
@@ -21,5 +21,10 @@ public class PortalTransferControl : MonoBehaviour
         {
             portable.CurrentPortingState = PortingState.EndingPositive;
         }
+    }
+
+    private bool CurrentStateOK(IPortable testSubject)
+    {
+        return testSubject.CurrentPortingState == PortingState.Ended || testSubject.CurrentPortingState == PortingState.InProgress;
     }
 }
