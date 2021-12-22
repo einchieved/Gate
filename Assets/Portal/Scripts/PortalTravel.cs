@@ -46,7 +46,7 @@ public class PortalTravel : MonoBehaviour
         }
         // prepare object
         IPortable portable = other.GetComponent<IPortable>();
-        if (portable == null || portable.IsClone)
+        if (portable == null)
         {
             return;
         }

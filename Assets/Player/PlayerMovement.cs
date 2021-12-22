@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour,  IPortable
     private PortingMovement portingMovement;
 
     public PortingState CurrentPortingState { get; set; }
-    public bool IsClone { get; set; }
     public PortingMovement PortingMvmnt => portingMovement;
     public Transform PortingPortal { get; set; }
 
@@ -23,22 +22,12 @@ public class PlayerMovement : MonoBehaviour,  IPortable
     {
         rb = GetComponent<Rigidbody>();
         portingMovement = GetComponent<PortingMovement>();
-        CurrentPortingState = PortingState.Ended;
-        if (IsClone)
-        {
-            cam.GetComponent<Camera>().enabled = false;
-            cam.GetComponent<AudioListener>().enabled = false;
-            rb.isKinematic = true;
-        }
+        CurrentPortingState = PortingState.NoPorting;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (IsClone)
-        {
-            return;
-        }
         // move
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
@@ -58,11 +47,7 @@ public class PlayerMovement : MonoBehaviour,  IPortable
 
     private void FixedUpdate()
     {
-        if (IsClone)
-        {
-            return;
-        }
-        if (CurrentPortingState != PortingState.Ended)
+        if (CurrentPortingState != PortingState.NoPorting)
         {
             switch (CurrentPortingState)
             {
@@ -77,40 +62,21 @@ public class PlayerMovement : MonoBehaviour,  IPortable
                     Move();
                     portingMovement.UpdateClone();
                     break;
-                case PortingState.EndingPositive:
-                    portingMovement.TransferControlToClone();
-                    CurrentPortingState = PortingState.Ended;
+                case PortingState.Porting:
+                    portingMovement.SwitchPlaceWithClone();
+                    portingMovement.UpdateClone();
+                    CurrentPortingState = PortingState.InProgress;
                     break;
-                case PortingState.EndingNegative:
+                case PortingState.Ending:
                     portingMovement.DestroyClone();
                     gameObject.layer = 3; //Player
-                    CurrentPortingState = PortingState.Ended;
+                    CurrentPortingState = PortingState.NoPorting;
                     break;
             }
             return;
         }
 
         Move();
-    }
-
-    public void Declonify(GameObject oldGameObject)
-    {
-        IsClone = false;
-        rb.isKinematic = false;
-        //Camera Handling
-        cam.GetComponent<Camera>().enabled = true;
-        cam.GetComponent<AudioListener>().enabled = true;
-        oldGameObject.GetComponentInChildren<Camera>().enabled = false;
-        oldGameObject.GetComponentInChildren<AudioListener>().enabled = false;
-
-        PortalGun pg = GetComponent<PortalGun>();
-        PortalGun oldPg = oldGameObject.GetComponent<PortalGun>();
-        pg.BluePortalHandler = oldPg.BluePortalHandler;
-        pg.OrangePortalHandler = oldPg.OrangePortalHandler;
-        pg.AssignCurrentPlayerToPortals();
-        gameObject.layer = 12; //PortingPlayer   
-
-        PortingPortal = oldGameObject.GetComponent<IPortable>().PortingPortal.GetComponent<PortalTravel>().OtherPortal.transform;
     }
 
     private void Move()

@@ -19,12 +19,12 @@ public class PortalTransferControl : MonoBehaviour
         IPortable portable = other.GetComponent<IPortable>();
         if (other == coll && portable.CurrentPortingState == PortingState.InProgress)
         {
-            portable.CurrentPortingState = PortingState.EndingPositive;
+            portable.CurrentPortingState = PortingState.Porting;
         }
     }
 
     private bool CurrentStateOK(IPortable testSubject)
     {
-        return testSubject.CurrentPortingState == PortingState.Ended || testSubject.CurrentPortingState == PortingState.InProgress;
+        return testSubject.CurrentPortingState == PortingState.NoPorting || testSubject.CurrentPortingState == PortingState.InProgress;
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PortingMovement : MonoBehaviour
@@ -8,9 +6,6 @@ public class PortingMovement : MonoBehaviour
 
     public Vector3 PortingDirection { get; set; }
     public Vector3 PortingFromDirection { get; set; }
-    public Transform Clone { get => clone; set => clone = value; }
-    public Transform OriginalPortal { get => originalPortal; set => originalPortal = value; }
-    public Transform ClonePortal { get => clonePortal; set => clonePortal = value; }
 
     private Rigidbody rb;
     private Vector3 lastvelocity;
@@ -35,28 +30,18 @@ public class PortingMovement : MonoBehaviour
         }
     }
 
-    public void TransferControlToClone()
+    public void SwitchPlaceWithClone()
     {
-        IPortable clonePortable = clone.GetComponent<IPortable>();
-        clonePortable.Declonify(gameObject);
-        clonePortable.CurrentPortingState = IPortable.PortingState.InProgress;
-        clone.parent = null;
-        clone.GetComponent<Rigidbody>().velocity = DeterminePortingVelocity();
-        MakeToClone();
-        //Assign Clone
-        PortingMovement clonePm = clonePortable.PortingMvmnt;
-        clonePm.Clone = transform;
-        //Assign Portals
-        clonePm.ClonePortal = originalPortal;
-        clonePm.OriginalPortal = clonePortal;
-    }
+        rb.position = clone.position;
+        rb.rotation = clone.rotation;
 
-    public void MakeToClone()
-    {
-        gameObject.layer = 13; //ClonePlayer
-        transform.parent = originalPortal;
-        rb.isKinematic = true;
-        GetComponent<IPortable>().IsClone = true;
+        Transform tmpPortal = originalPortal;
+        originalPortal = clonePortal;
+        clonePortal = tmpPortal;
+
+        clone.parent = clonePortal;
+
+        rb.velocity = DeterminePortingVelocity();
     }
 
     public void InstantiateClone(Transform originalPortal, Transform clonePortal)
@@ -68,11 +53,12 @@ public class PortingMovement : MonoBehaviour
         this.originalPortal = originalPortal;
         this.clonePortal = clonePortal;
         clone = Instantiate(cloneGameObject, clonePortal.position, Quaternion.identity).transform;
-        clone.GetComponent<IPortable>().IsClone = true;
         clone.parent = clonePortal;
         clone.gameObject.layer = 13; //ClonePlayer
         UpdateClone();
     }
+
+    #region clone update
 
     public void UpdateClone()
     {
@@ -99,6 +85,8 @@ public class PortingMovement : MonoBehaviour
         clone.forward = clonePortal.up;
         clone.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.Self);
     }
+
+    #endregion
 
     private Vector3 DeterminePortingVelocity()
     {
