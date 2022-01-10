@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 25606a75aaa453f4ba8ccd8a0cab369c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - blueDefaultMaterial: {fileID: 2100000, guid: f35b5d45bbebab944bcc5c245b856f77, type: 2}
+  - orangeDefaultMaterial: {fileID: 2100000, guid: e16272948bddaf248bf51c92d2404088, type: 2}
+  - blueMaterial: {fileID: 2100000, guid: 57cad991efd4c634f9fbb5b3a761f085, type: 2}
+  - orangeMaterial: {fileID: 2100000, guid: b67676e55fc2a8c42b2b2be6898121a8, type: 2}
+  - portalPrefab: {fileID: 273133636374704099, guid: 73c7dbda88d4b1c45a433635c8520af2, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

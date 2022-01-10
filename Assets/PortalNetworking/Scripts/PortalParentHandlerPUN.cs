@@ -20,6 +20,7 @@ public class PortalParentHandlerPUN : MonoBehaviourPun
     {
         Init();
         mainCamera.targetTexture = renderTexture;
+        Debug.Log("renderTexture: " + (renderTexture == null).ToString());
     }
 
     public void AssignMaterial(Material newMaterial)
