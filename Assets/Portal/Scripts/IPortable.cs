@@ -13,5 +13,5 @@ public interface IPortable
 
     public PortingState CurrentPortingState { get; set; }
     public Transform PortingPortal {get; set; }
-    public PortingMovement PortingMvmnt { get; }
+    public PortingMovementPUN PortingMvmnt { get; }
 }

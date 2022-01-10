@@ -1,7 +1,8 @@
+using Photon.Pun;
 using UnityEngine;
 using static IPortable;
 
-public class PlayerMovement : MonoBehaviour//,  IPortable
+public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
 {
     public float speed = 200f;
     public float mouseSensitivity = 200f;
@@ -11,23 +12,37 @@ public class PlayerMovement : MonoBehaviour//,  IPortable
     private float xRotation = 0f;
     private Rigidbody rb;
     private float vertical, horizontal, mouseX, mouseY;
-    private PortingMovement portingMovement;
+    private PortingMovementPUN portingMovement;
 
     public PortingState CurrentPortingState { get; set; }
-    public PortingMovement PortingMvmnt => portingMovement;
+    public PortingMovementPUN PortingMvmnt => portingMovement;
     public Transform PortingPortal { get; set; }
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        portingMovement = GetComponent<PortingMovement>();
+        portingMovement = GetComponent<PortingMovementPUN>();
+
+        if (!photonView.IsMine)
+        {
+            Destroy(cam.gameObject);
+            Destroy(rb);
+            Destroy(GetComponent<CapsuleCollider>());
+            Destroy(portingMovement);
+            return;
+        }
+
         CurrentPortingState = PortingState.NoPorting;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         // move
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
@@ -47,36 +62,37 @@ public class PlayerMovement : MonoBehaviour//,  IPortable
 
     private void FixedUpdate()
     {
-        if (CurrentPortingState != PortingState.NoPorting)
+        if (!photonView.IsMine)
         {
-            switch (CurrentPortingState)
-            {
-                case PortingState.Started:
-                    PortalTravel pt = PortingPortal.GetComponent<PortalTravel>();
-                    Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
-                    portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
-                    gameObject.layer = 12;
-                    CurrentPortingState = PortingState.InProgress;
-                    break;
-                case PortingState.InProgress:
-                    Move();
-                    portingMovement.UpdateClone();
-                    break;
-                case PortingState.Porting:
-                    portingMovement.SwitchPlaceWithClone();
-                    portingMovement.UpdateClone();
-                    CurrentPortingState = PortingState.InProgress;
-                    break;
-                case PortingState.Ending:
-                    portingMovement.DestroyClone();
-                    gameObject.layer = 3; //Player
-                    CurrentPortingState = PortingState.NoPorting;
-                    break;
-            }
             return;
         }
-
-        Move();
+        switch (CurrentPortingState)
+        {
+            case PortingState.Started:
+                PortalBehaviorPUN pt = PortingPortal.GetComponent<PortalBehaviorPUN>();
+                Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
+                portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
+                gameObject.layer = 12;
+                CurrentPortingState = PortingState.InProgress;
+                break;
+            case PortingState.InProgress:
+                Move();
+                portingMovement.UpdateClone();
+                break;
+            case PortingState.Porting:
+                portingMovement.SwitchPlaceWithClone();
+                portingMovement.UpdateClone();
+                CurrentPortingState = PortingState.InProgress;
+                break;
+            case PortingState.Ending:
+                portingMovement.DestroyClone();
+                gameObject.layer = 3; //Player
+                CurrentPortingState = PortingState.NoPorting;
+                break;
+            default:
+                Move();
+                break;
+        }
     }
 
     private void Move()
