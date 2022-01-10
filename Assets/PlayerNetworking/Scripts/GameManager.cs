@@ -4,37 +4,37 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
-
-    #region Private Variables
-
+    
     private int level = 0;
-    
-    #endregion
-    
-    #region Public Variables
+    public GameObject timePlayerPrefab;
+    public GameObject portalPlayerPrefab;
 
-    [Tooltip("The prefab to use for representing the player")]
-    public GameObject playerPrefab;
-
-    #endregion
-
+    private int playerCount = 0;
 
     private void Start()
     {
-        if (playerPrefab == null)
+        if (timePlayerPrefab == null)
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'",this);
         }
+        
         else
         {
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
-                // we're in a room. spawn a character for the local player. it gets synced by using PhotonNetwork.Instantiate
-                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                switch (PhotonNetwork.CurrentRoom.PlayerCount )
+                {
+                    case 2 : 
+                        PhotonNetwork.Instantiate(this.timePlayerPrefab.name, new Vector3(24f, 1f, -12f), Quaternion.identity, 0);
+                        break;
+                    case 1 :
+                        PhotonNetwork.Instantiate(this.portalPlayerPrefab.name, new Vector3(6f, 2f, -3f), Quaternion.identity, 0);
+                        break;
+                }
             }
             else
             {
@@ -43,33 +43,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    #region Photon Callbacks
-
-
-    /// <summary>
-    /// Called when the local player left the room. We need to load the launcher scene.
-    /// </summary>
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene(0);
     }
 
-    #endregion
-
-
-    #region Public Methods
-
-
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
     }
-
-
-    #endregion
-
-    #region Private Methods
-
 
     void LoadNextLevel()
     {
@@ -83,8 +65,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         PhotonNetwork.LoadLevel(currentRoomName.Substring(0, currentRoomName.Length - 2) + ++level);
     }
-
-
-    #endregion
-    
 }

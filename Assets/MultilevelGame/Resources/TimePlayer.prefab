@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 3397616162931716733}
   - component: {fileID: -3583636735077808585}
   m_Layer: 0
-  m_Name: Player
+  m_Name: TimePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1885,7 +1885,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8c74cb467f91d4255b7b05c5e4e25fd6, type: 2}
+  - {fileID: 2100000, guid: 88ea46813391b40beb490bc0159a01b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
