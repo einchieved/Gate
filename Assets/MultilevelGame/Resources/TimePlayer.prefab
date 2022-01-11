@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 3397616162931716733}
   - component: {fileID: -3583636735077808585}
   m_Layer: 0
-  m_Name: Player
+  m_Name: TimePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   - {fileID: 240308019}
   - {fileID: 3747769600993578717}
   - {fileID: -9193314303336555553}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &240308019
@@ -513,11 +513,14 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Direction
   - Type: 4
-    SynchronizeType: 0
-    Name: Jump
+    SynchronizeType: 1
+    Name: Run
+  - Type: 4
+    SynchronizeType: 1
+    Name: Idle
   - Type: 4
     SynchronizeType: 0
-    Name: Hi
+    Name: Jump
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -1882,7 +1885,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8c74cb467f91d4255b7b05c5e4e25fd6, type: 2}
+  - {fileID: 2100000, guid: 88ea46813391b40beb490bc0159a01b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
