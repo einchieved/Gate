@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5e67f5163a1f541bbc71d0a430ec25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloneGameObject: {fileID: 974491610685543987}
+  cloneGameObject: {fileID: 974491610685543987, guid: ac156c542b273de4da03eaac31c5a668, type: 3}
 --- !u!114 &930722519634637019
 MonoBehaviour:
   m_ObjectHideFlags: 0

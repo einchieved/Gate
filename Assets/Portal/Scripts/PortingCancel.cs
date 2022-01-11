@@ -19,7 +19,7 @@ public class PortingCancel : MonoBehaviour
         IPortable portable = other.GetComponent<IPortable>();
         if (other == coll && portable.CurrentPortingState == PortingState.InProgress)
         {
-            portable.CurrentPortingState = PortingState.EndingNegative;
+            portable.CurrentPortingState = PortingState.Ending;
         }
     }
 }

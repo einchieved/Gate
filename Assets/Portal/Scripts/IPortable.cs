@@ -6,15 +6,12 @@ public interface IPortable
     {
         Started,
         InProgress,
-        EndingPositive,
-        EndingNegative,
-        Ended
+        Porting,
+        Ending,
+        NoPorting
     }
 
     public PortingState CurrentPortingState { get; set; }
-    public bool IsClone { get; set; }
     public Transform PortingPortal {get; set; }
-    public PortingMovement PortingMvmnt { get; }
-
-    public void Declonify(GameObject oldGameObject);
+    public PortingMovementPUN PortingMvmnt { get; }
 }

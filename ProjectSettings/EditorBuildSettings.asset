@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultilevelGame/Level03.unity
     guid: 868387eae7f1749f2b1f592c0b6a1b18
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Room3.unity
+    guid: d289f3fed0b424729949c8541c3ddd43
+  - enabled: 1
+    path: Assets/Scenes/PlayerNetworkingSandox/Room4.unity
+    guid: f1aa1142edd194c7e95b64b15bb1f26f
+  - enabled: 1
+    path: Assets/Scenes/PortalNetworking/Portal4Networking.unity
+    guid: 0c7a99d8f93c1484b84a30c49a23570a
   m_configObjects: {}
