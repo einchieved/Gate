@@ -9,9 +9,12 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     
-    private int level = 0;
+    private int level = 1;
     public GameObject timePlayerPrefab;
     public GameObject portalPlayerPrefab;
+    public GameObject p1SpawnPoint;
+    public GameObject p2SpawnPoint;
+
 
     private int playerCount = 0;
 
@@ -21,25 +24,31 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'",this);
         }
-        
         else
         {
             if (PlayerManager.LocalPlayerInstance == null)
             {
-                switch (PhotonNetwork.CurrentRoom.PlayerCount )
-                {
-                    case 2 : 
-                        PhotonNetwork.Instantiate(this.timePlayerPrefab.name, new Vector3(24f, 1f, -12f), Quaternion.identity, 0);
-                        break;
-                    case 1 :
-                        PhotonNetwork.Instantiate(this.portalPlayerPrefab.name, new Vector3(6f, 2f, -3f), Quaternion.identity, 0);
-                        break;
-                }
+               createPlayer(); 
             }
             else
             {
                 Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
             }
+        }
+    }
+    
+
+    private void createPlayer()
+    {
+        switch (PhotonNetwork.CurrentRoom.PlayerCount )
+        {
+            case 1 :
+                Debug.Log("Spawn Point: " + p1SpawnPoint.transform.position);
+                PhotonNetwork.Instantiate(this.portalPlayerPrefab.name, p1SpawnPoint.transform.position, Quaternion.identity, 0);
+                break;
+            case 2 :
+                PhotonNetwork.Instantiate(this.timePlayerPrefab.name, p2SpawnPoint.transform.position, Quaternion.identity, 0);
+                break;
         }
     }
 
@@ -51,18 +60,5 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         PhotonNetwork.LeaveRoom();
-    }
-
-    void LoadNextLevel()
-    {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
-        }
-        Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.Name);
-
-        string currentRoomName = PhotonNetwork.CurrentRoom.Name;
-        
-        PhotonNetwork.LoadLevel(currentRoomName.Substring(0, currentRoomName.Length - 2) + ++level);
     }
 }

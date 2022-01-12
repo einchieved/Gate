@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class AttachPlayer : MonoBehaviour
 {
-
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         other.transform.parent = transform;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
         other.transform.parent = null;
     }
