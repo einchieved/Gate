@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CompanionCube
+  - P1
+  - P2
   layers:
   - Default
   - TransparentFX
@@ -20,7 +23,7 @@ TagManager:
   - PortingPlayer
   - ClonePlayer
   - PortalControls
-  - 
+  - CompanionCube
   - 
   - 
   - 

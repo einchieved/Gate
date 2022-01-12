@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6805735974865913454}
   m_Layer: 8
   m_Name: CompanionCube
-  m_TagString: Untagged
+  m_TagString: CompanionCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4882ac37379c84097b8c7fb61c3dff96, type: 2}
+  - {fileID: 2100000, guid: 97d4bc07055604a29b837a2107a47e5e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

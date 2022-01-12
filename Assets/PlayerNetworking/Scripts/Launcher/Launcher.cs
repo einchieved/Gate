@@ -78,5 +78,4 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("Level01");
         }
-        
 }
