@@ -46,17 +46,15 @@ public class PortalGunPUN : MonoBehaviourPun
             return;
         }
 
-        Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.01f;
+        Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.03f; //0.01
         // adjust rotation
         Vector3 forwrd = hitInfo.transform.up * -1;
         // adjust portal rotation to player rotation
         bool hasRelativeRotation = false;
         if (targetLayer == 9)
         {
-            //portalHandler.CallRPC("CreatePortal", RpcTarget.All, newPortalPosition, forwrd, true, isBlue);
             hasRelativeRotation = true;
         }
-        //portalHandler.CallRPC("CreatePortal", RpcTarget.All, newPortalPosition, forwrd, false, isBlue);
         object[] data = new object[] { newPortalPosition, forwrd, hasRelativeRotation, isBlue };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(PortalHandlerPUN.CreatePortalEventCode, data, raiseEventOptions, SendOptions.SendReliable);

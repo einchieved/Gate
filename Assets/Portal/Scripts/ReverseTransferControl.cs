@@ -11,16 +11,6 @@ public class ReverseTransferControl : MonoBehaviour
         if (portable != null && portable.CurrentPortingState == PortingState.InProgress)
         {
             portable.CurrentPortingState = PortingState.Porting;
-            /*
-            if (coll == null)
-            {
-                coll = other;
-            }
-            else if (coll == other)
-            {
-                portable.CurrentPortingState = PortingState.EndingPositive;
-                coll = null;
-            }*/
         }
     }
 }

@@ -377,6 +377,9 @@ GameObject:
   - component: {fileID: -9193314303336555553}
   - component: {fileID: 3397616162931716733}
   - component: {fileID: -3583636735077808585}
+  - component: {fileID: 244814932803024013}
+  - component: {fileID: 1153935081319034244}
+  - component: {fileID: 7341540084370941283}
   m_Layer: 0
   m_Name: TimePlayer
   m_TagString: Untagged
@@ -472,7 +475,7 @@ MonoBehaviour:
   - {fileID: 240308019}
   - {fileID: 3747769600993578717}
   - {fileID: -9193314303336555553}
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &240308019
@@ -490,7 +493,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!114 &3747769600993578717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,14 +516,11 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Direction
   - Type: 4
-    SynchronizeType: 1
-    Name: Run
-  - Type: 4
-    SynchronizeType: 1
-    Name: Idle
-  - Type: 4
     SynchronizeType: 0
     Name: Jump
+  - Type: 4
+    SynchronizeType: 0
+    Name: Hi
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -548,8 +548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b99e4e80504c10b723eec98a51dacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  mouseSensitivity: 200
   cam: {fileID: 1556654920}
 --- !u!23 &-3583636735077808585
 MeshRenderer:
@@ -592,6 +590,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &244814932803024013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128335077099333811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25606a75aaa453f4ba8ccd8a0cab369c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueDefaultMaterial: {fileID: 2100000, guid: f35b5d45bbebab944bcc5c245b856f77, type: 2}
+  orangeDefaultMaterial: {fileID: 2100000, guid: e16272948bddaf248bf51c92d2404088, type: 2}
+  blueMaterial: {fileID: 2100000, guid: 57cad991efd4c634f9fbb5b3a761f085, type: 2}
+  orangeMaterial: {fileID: 2100000, guid: b67676e55fc2a8c42b2b2be6898121a8, type: 2}
+  portalPrefab: {fileID: 273133636374704099, guid: 73c7dbda88d4b1c45a433635c8520af2, type: 3}
+--- !u!114 &1153935081319034244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128335077099333811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d71809303fbb248863d85c9527474d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 200
+  mouseSensitivity: 200
+  maxFallSpeed: 20
+  cam: {fileID: 1556654920}
+--- !u!114 &7341540084370941283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128335077099333811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a115c2b3e3af8c146a4c4dad574b8e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloneGameObject: {fileID: 1128335077099333811, guid: 21191bd9e74408245ae4ba96b9acc5d3, type: 3}
 --- !u!1 &1128335077099333813
 GameObject:
   m_ObjectHideFlags: 0
