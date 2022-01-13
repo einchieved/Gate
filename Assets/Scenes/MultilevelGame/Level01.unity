@@ -424,7 +424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevel: 2
-  gameManager: {fileID: 1786228139}
 --- !u!1 &221079986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,6 +2899,10 @@ PrefabInstance:
     - target: {fileID: 6805735974865913448, guid: 9adaf6c49b4e24d87b164b5b1044a317, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865394619659241637, guid: 9adaf6c49b4e24d87b164b5b1044a317, type: 3}
+      propertyPath: sceneViewId
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9adaf6c49b4e24d87b164b5b1044a317, type: 3}

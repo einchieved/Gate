@@ -79,7 +79,8 @@ public class ControllerPUN: MonoBehaviourPun
     
     protected void Freeze()
     {
-        photonView.RPC(nameof(FreezeAll), RpcTarget.AllViaServer);        
+        FreezeAll();
+        photonView.RPC(nameof(FreezeAll), RpcTarget.All);        
     }
 
     private void FixedUpdate()
@@ -94,12 +95,11 @@ public class ControllerPUN: MonoBehaviourPun
         }
     }
     
-    /*
     void OnCollisionEnter(Collision collision)
     {
         freezeForceRecorder.AddForce(collision.relativeVelocity);
     }
-    */
+    
 
     protected virtual void FreezeAll()
     {
