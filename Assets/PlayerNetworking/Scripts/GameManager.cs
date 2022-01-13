@@ -42,12 +42,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         switch (PhotonNetwork.CurrentRoom.PlayerCount )
         {
-            case 1 :
-                Debug.Log("Spawn Point: " + p1SpawnPoint.transform.position);
+            case 2 :
                 PhotonNetwork.Instantiate(this.portalPlayerPrefab.name, p1SpawnPoint.transform.position, Quaternion.identity, 0);
                 break;
-            case 2 :
-                PhotonNetwork.Instantiate(this.timePlayerPrefab.name, p2SpawnPoint.transform.position, Quaternion.identity, 0);
+            case 1 :
+                PhotonNetwork.Instantiate(this.timePlayerPrefab.name, p1SpawnPoint.transform.position, Quaternion.identity, 0);
                 break;
         }
     }

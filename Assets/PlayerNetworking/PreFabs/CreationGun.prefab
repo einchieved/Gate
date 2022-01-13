@@ -43,5 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e902947acd8475d8be7f683ee16a6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 2063586102095264087, guid: 33ef077ced6ae42ffadcbf481d0ce19d, type: 3}
-  spherePrefab: {fileID: 5098187205146871369, guid: eaeeeae4267974bfcaae1555eb907afe, type: 3}
+  spherePrefab: {fileID: 2063586102095264087, guid: b67410eac28f941aea4e326dbd6ca7ea, type: 3}

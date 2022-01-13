@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 
@@ -16,6 +13,7 @@ public class ObjectControllerPUN : ControllerPUN, ITimeControlablePUN
     {
         if (IsFocused)
         {
+            Debug.Log("Focuuuus");
             HandleRewind(KeyCode.E, KeyCode.T);
             Debug.Log("isFocused");
         }
