@@ -18,10 +18,10 @@ public class Respawn : MonoBehaviour
                 other.transform.position = companionCubeRespawn.transform.position;
                 break;
             case "P1":
-                other.transform.position = p1Respawn.transform.position;
+                other.transform.position = p2Respawn.transform.position;
                 break;
             case "P2":
-                other.transform.position = p2Respawn.transform.position;
+                other.transform.position = p1Respawn.transform.position;
                 break;
         }
         

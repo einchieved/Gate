@@ -97,7 +97,10 @@ public class ControllerPUN: MonoBehaviourPun
     
     void OnCollisionEnter(Collision collision)
     {
-        freezeForceRecorder.AddForce(collision.relativeVelocity);
+        if (freezeForceRecorder != null)
+        {
+            freezeForceRecorder.AddForce(collision.relativeVelocity);
+        }
     }
     
 
