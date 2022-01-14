@@ -52,6 +52,8 @@ public class PortalParentHandlerPUN : MonoBehaviourPun
         return portalBehavior;
     }
 
+    // Need to initlize manually, because the other methods are called directly after the prefab, to which this script is attached,
+    // has been instantiated. Start() and Awake() would be called before the next frame, but we need those fields now.
     private void Init()
     {
         if (isInitiated)
