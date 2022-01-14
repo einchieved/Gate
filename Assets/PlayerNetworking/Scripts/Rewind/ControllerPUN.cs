@@ -7,7 +7,7 @@ public class ControllerPUN: MonoBehaviourPun
     protected Rigidbody _rb;
     protected bool _rewind;
     
-    private StateCollectionPUN _statesOverTime;
+    protected StateCollectionPUN _statesOverTime;
     private TimeReverserPUN timeReverser;
     private StateRecorderPUN stateRecorder;
     private FreezeForceRecorderPUN freezeForceRecorder;
