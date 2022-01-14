@@ -1,4 +1,5 @@
 using DefaultNamespace;
+using Photon.Pun;
 using UnityEngine;
 
 public class StateCollectionPUN
@@ -12,6 +13,14 @@ public class StateCollectionPUN
         states = new StatePUN[size];
     }
     
+    
+    public void Reset()
+    {
+        states = new StatePUN[size];
+        pointer = 0;
+    }
+    
+
 
     public void Push(StatePUN state)
     {
