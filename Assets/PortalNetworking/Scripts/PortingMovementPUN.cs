@@ -61,6 +61,12 @@ public class PortingMovementPUN : MonoBehaviourPun
         UpdateClone();
     }
 
+    public void InstantiateClone(Transform originalPortal, Transform clonePortal, Material material)
+    {
+        InstantiateClone(originalPortal, clonePortal);
+        clone.gameObject.GetComponent<Renderer>().material = material;
+    }
+
     #region clone update
 
     public void UpdateClone()

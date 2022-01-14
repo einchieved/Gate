@@ -52,12 +52,6 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
         xRotation -= (mouseY * Time.deltaTime);
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-        // jump
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
-        }
     }
 
     private void FixedUpdate()
@@ -71,7 +65,7 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
             case PortingState.Started:
                 PortalBehaviorPUN pt = PortingPortal.GetComponent<PortalBehaviorPUN>();
                 Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
-                portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
+                portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform, GetComponent<Renderer>().material);
                 gameObject.layer = 12;
                 CurrentPortingState = PortingState.InProgress;
                 break;
