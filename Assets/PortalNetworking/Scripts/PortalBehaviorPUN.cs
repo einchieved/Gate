@@ -20,7 +20,6 @@ public class PortalBehaviorPUN : MonoBehaviour
         {
             Player = PlayerManager.LocalPlayerInstance.transform;
         }
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -56,8 +55,9 @@ public class PortalBehaviorPUN : MonoBehaviour
         {
             return;
         }
-
+        
         portable.CurrentPortingState = PortingState.Started;
+        Debug.Log("started");
         portable.PortingPortal = transform;
         portable.PortingMvmnt.PortingDirection = OtherPortal.transform.up;
         portable.PortingMvmnt.PortingFromDirection = transform.up;

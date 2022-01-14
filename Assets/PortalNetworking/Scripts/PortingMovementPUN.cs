@@ -11,11 +11,13 @@ public class PortingMovementPUN : MonoBehaviourPun
     private Rigidbody rb;
     private Vector3 lastvelocity;
     private Transform clone, originalPortal, clonePortal;
+    private IPortable portable;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        portable = GetComponent<IPortable>();
     }
 
     private void FixedUpdate()

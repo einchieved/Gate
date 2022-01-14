@@ -507,7 +507,7 @@ MonoBehaviour:
   - {fileID: 240308019}
   - {fileID: 3747769600993578717}
   - {fileID: -9193314303336555553}
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &240308019
@@ -548,14 +548,11 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Direction
   - Type: 4
-    SynchronizeType: 1
-    Name: Run
-  - Type: 4
-    SynchronizeType: 1
-    Name: Idle
-  - Type: 4
     SynchronizeType: 0
     Name: Jump
+  - Type: 4
+    SynchronizeType: 0
+    Name: Hi
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0
@@ -584,8 +581,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b99e4e80504c10b723eec98a51dacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  mouseSensitivity: 200
   cam: {fileID: 1556654920}
 --- !u!23 &-3583636735077808585
 MeshRenderer:
