@@ -11,10 +11,22 @@ public class Spawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject p1 = GameObject.FindWithTag("P1");
-        p1.gameObject.transform.position = p1spawn.transform.position;
-        GameObject p2 = GameObject.FindWithTag("P2");
-        p2.gameObject.transform.position = p2spawn.transform.position;
+
+        switch (PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            case 1: 
+                GameObject p1 = GameObject.FindWithTag("P1");
+                p1.gameObject.transform.position = p1spawn.transform.position;
+                break;
+            case 2: 
+                GameObject playerOne = GameObject.FindWithTag("P1");
+                playerOne.gameObject.transform.position = p1spawn.transform.position;
+                GameObject playerTwo = GameObject.FindWithTag("P2");
+                playerTwo.gameObject.transform.position = p2spawn.transform.position;
+                break;
+        }
+        
+        
     }
     
 }

@@ -7,7 +7,7 @@ public class ControllerPUN: MonoBehaviourPun
     protected Rigidbody _rb;
     protected bool _rewind;
     
-    private StateCollectionPUN _statesOverTime;
+    protected StateCollectionPUN _statesOverTime;
     private TimeReverserPUN timeReverser;
     private StateRecorderPUN stateRecorder;
     private FreezeForceRecorderPUN freezeForceRecorder;
@@ -79,7 +79,8 @@ public class ControllerPUN: MonoBehaviourPun
     
     protected void Freeze()
     {
-        photonView.RPC(nameof(FreezeAll), RpcTarget.AllViaServer);        
+        FreezeAll();
+        photonView.RPC(nameof(FreezeAll), RpcTarget.All);        
     }
 
     private void FixedUpdate()
@@ -94,12 +95,14 @@ public class ControllerPUN: MonoBehaviourPun
         }
     }
     
-    /*
     void OnCollisionEnter(Collision collision)
     {
-        freezeForceRecorder.AddForce(collision.relativeVelocity);
+        if (freezeForceRecorder != null)
+        {
+            freezeForceRecorder.AddForce(collision.relativeVelocity);
+        }
     }
-    */
+    
 
     protected virtual void FreezeAll()
     {

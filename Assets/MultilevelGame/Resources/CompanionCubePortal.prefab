@@ -13,15 +13,15 @@ GameObject:
   - component: {fileID: 6805735974865913450}
   - component: {fileID: 6805735974865913449}
   - component: {fileID: 6805735974865913445}
-  - component: {fileID: 6805735974865913454}
   - component: {fileID: 1051043854878017205}
   - component: {fileID: 217825092821066295}
   - component: {fileID: 1298543550841602970}
   - component: {fileID: -3799334741326798493}
   - component: {fileID: 7503105660583262118}
+  - component: {fileID: -6624274756332979053}
   m_Layer: 8
   m_Name: CompanionCubePortal
-  m_TagString: Untagged
+  m_TagString: CompanionCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,18 +118,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6805735974865913454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6805735974865913444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bfc617589d1842efad8bf5d513ea8e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1051043854878017205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,3 +199,15 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &-6624274756332979053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805735974865913444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c359ffa097e94f2aafc32c14f5109d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

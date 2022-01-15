@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CreationPUN : MonoBehaviourPun
 {
-    public GameObject cubePrefab;
     public GameObject spherePrefab;
     
     void Update()
@@ -20,18 +19,14 @@ public class CreationPUN : MonoBehaviourPun
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
         { 
-            gameObject = PhotonNetwork.Instantiate(cubePrefab.name, transform.position, transform.rotation);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
             gameObject = PhotonNetwork.Instantiate(spherePrefab.name, transform.position, transform.rotation);
         }
+        
 
         if (gameObject != null)
         {
             Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-            rigidbody.AddForce(transform.forward * 1000); 
+            rigidbody.AddForce(transform.forward * 2000); 
         }
     }
     
