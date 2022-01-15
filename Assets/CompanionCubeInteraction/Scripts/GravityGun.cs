@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class GravityGun : MonoBehaviour
+public class GravityGun : MonoBehaviourPun
 {
     
     public Transform playerCamTransform;
@@ -20,6 +21,11 @@ public class GravityGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         
         if (Input.GetKey(KeyCode.Return) && objOnGun == null)
         {

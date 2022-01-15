@@ -13,7 +13,6 @@ public class ObjectControllerPUN : ControllerPUN, ITimeControlablePUN
     {
         if (IsFocused)
         {
-            Debug.Log("Focuuuus");
             HandleRewind(KeyCode.E, KeyCode.T);
             Debug.Log("isFocused");
         }

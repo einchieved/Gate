@@ -42,10 +42,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         switch (PhotonNetwork.CurrentRoom.PlayerCount )
         {
-            case 1 :
+            case 2 :
                 PhotonNetwork.Instantiate(portalPlayerPrefab.name, p2SpawnPoint.transform.position, Quaternion.identity, 0);
                 break;
-            case 2 :
+            case 1 :
                 PhotonNetwork.Instantiate(timePlayerPrefab.name , p1SpawnPoint.transform.position, Quaternion.identity, 0);
                 break;
         }

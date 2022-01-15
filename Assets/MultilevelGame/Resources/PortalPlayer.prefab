@@ -509,7 +509,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -649,13 +649,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128335077099333811}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56d71809303fbb248863d85c9527474d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 200
-  mouseSensitivity: 200
+  speed: 80
+  mouseSensitivity: 150
   maxFallSpeed: 20
   cam: {fileID: 1556654920}
 --- !u!114 &5079883044229585122
@@ -665,7 +665,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128335077099333811}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a115c2b3e3af8c146a4c4dad574b8e4f, type: 3}
   m_Name: 

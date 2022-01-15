@@ -4,9 +4,9 @@ using static IPortable;
 
 public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
 {
-    public float speed = 200f;
-    public float mouseSensitivity = 200f;
-    public float maxFallSpeed = 50f;
+    public float speed = 80f;
+    public float mouseSensitivity = 150;
+    public float maxFallSpeed = 20f;
     public Transform cam;
 
     private float xRotation = 0f;
@@ -35,6 +35,7 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
 
         CurrentPortingState = PortingState.NoPorting;
     }
+    
 
     // Update is called once per frame
     void Update()
