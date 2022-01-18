@@ -15,6 +15,7 @@ public class Respawn : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "CompanionCube":
+                other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 other.transform.position = companionCubeRespawn.transform.position;
                 break;
             case "P1":

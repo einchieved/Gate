@@ -99,6 +99,7 @@ public class PortingMovementPUN : MonoBehaviourPun
 
     private Vector3 DeterminePortingVelocity()
     {
+        Debug.LogError("PortVel");
         // find origin dir
         float x = Mathf.Abs(PortingFromDirection.x);
         float y = Mathf.Abs(PortingFromDirection.y);

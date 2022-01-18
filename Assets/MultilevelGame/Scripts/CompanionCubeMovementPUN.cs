@@ -1,15 +1,25 @@
+using Photon.Pun;
 using UnityEngine;
 using static IPortable;
 
-public class CompanionCubeMovementPUN : MonoBehaviour, IPortable
+public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObservable
 {
     private PortingMovementPUN portingMovement;
     private Rigidbody rb;
     private Vector3 lastVelocity, lastPosition;
+    private PortingState currentPortingSate;
 
-    public PortingState CurrentPortingState { get; set; }
+    public PortingState CurrentPortingState { get => currentPortingSate; set => SetCurrentPortingState(value); }
     public Transform PortingPortal { get; set; }
     public PortingMovementPUN PortingMvmnt => portingMovement;
+
+    private void SetCurrentPortingState(PortingState val)
+    {
+        if (photonView.IsMine)
+        {
+            currentPortingSate = val;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +38,12 @@ public class CompanionCubeMovementPUN : MonoBehaviour, IPortable
 
     private void FixedUpdate()
     {
+        // the content of this method should only be executed once
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         switch (CurrentPortingState)
         {
             case PortingState.Started:
@@ -36,19 +52,23 @@ public class CompanionCubeMovementPUN : MonoBehaviour, IPortable
                 portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
                 gameObject.layer = 12;
                 CurrentPortingState = PortingState.InProgress;
+                Debug.LogError("started");
                 break;
             case PortingState.InProgress:
                 portingMovement.UpdateClone();
+                //Debug.LogError("updating");
                 break;
             case PortingState.Porting:
                 portingMovement.SwitchPlaceWithClone();
                 portingMovement.UpdateClone();
                 CurrentPortingState = PortingState.InProgress;
+                Debug.LogError("porting");
                 break;
             case PortingState.Ending:
                 portingMovement.DestroyClone();
                 gameObject.layer = 8; //CubeTime
                 CurrentPortingState = PortingState.NoPorting;
+                Debug.LogError("ending");
                 break;
             default:
                 break;
@@ -56,14 +76,33 @@ public class CompanionCubeMovementPUN : MonoBehaviour, IPortable
     }
 
     private void OnCollisionEnter(Collision collision)
-    {
+    {        
         // ignore Collision with wall if we now start porting
         // see https://docs.unity3d.com/Manual/ExecutionOrder.html for more information about
         // the order of execution for event functions
-        if (CurrentPortingState == PortingState.Started && collision.collider.gameObject.layer == 11)
+        if (CurrentPortingState == PortingState.Started && collision.collider.gameObject.layer == 16)
         {
+            Debug.LogError("collision reset");
             rb.position = lastPosition;
             rb.velocity = lastVelocity;
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            if (!photonView.IsMine)
+            {
+                return;
+            }
+            stream.SendNext(CurrentPortingState);
+            stream.SendNext(gameObject.layer);
+        }
+        else
+        {
+            CurrentPortingState = (PortingState)stream.ReceiveNext();
+            gameObject.layer = (int)stream.ReceiveNext();
         }
     }
 }
