@@ -642,6 +642,7 @@ MonoBehaviour:
   blueMaterial: {fileID: 2100000, guid: 57cad991efd4c634f9fbb5b3a761f085, type: 2}
   orangeMaterial: {fileID: 2100000, guid: b67676e55fc2a8c42b2b2be6898121a8, type: 2}
   portalPrefab: {fileID: 273133636374704099, guid: 73c7dbda88d4b1c45a433635c8520af2, type: 3}
+  portalCamRefPoint: {fileID: 1128335077099041999}
 --- !u!114 &2821375934924723112
 MonoBehaviour:
   m_ObjectHideFlags: 0

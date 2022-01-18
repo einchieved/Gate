@@ -9,6 +9,7 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
 
     public Material blueDefaultMaterial, orangeDefaultMaterial, blueMaterial, orangeMaterial;
     public GameObject portalPrefab;
+    public Transform portalCamRefPoint;
 
     private GameObject bluePortal, orangePortal;
     private PortalParentHandlerPUN bluePortalHandler, orangePortalHandler;
@@ -48,7 +49,7 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             bluePortalHandler = bluePortal.GetComponent<PortalParentHandlerPUN>();
             bluePortalHandler.AssignMaterial(blueDefaultMaterial);
             bluePortalHandler.DisableCamera();
-            bluePortalHandler.AssignPlayer(transform);
+            bluePortalHandler.AssignPlayer(portalCamRefPoint);
         }
         else
         {
@@ -60,7 +61,7 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             orangePortalHandler = orangePortal.GetComponent<PortalParentHandlerPUN>();
             orangePortalHandler.AssignMaterial(orangeDefaultMaterial);
             orangePortalHandler.DisableCamera();
-            orangePortalHandler.AssignPlayer(transform);
+            orangePortalHandler.AssignPlayer(portalCamRefPoint);
         }
 
         newPortal.transform.forward = forwrd;

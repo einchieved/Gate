@@ -14,9 +14,9 @@ public class PortalBehaviorPUN : MonoBehaviour
 
     private void Start()
     {
-        overlayCamStartRotation = overlayCamera.rotation;
-        overlayCamStartPosition = overlayCamera.position;
-        if (PlayerManager.LocalPlayerInstance != null)
+        overlayCamStartRotation = overlayCamera.localRotation;
+        overlayCamStartPosition = overlayCamera.localPosition;
+        if (Player == null && PlayerManager.LocalPlayerInstance != null)
         {
             Player = PlayerManager.LocalPlayerInstance.transform;
         }
@@ -31,9 +31,10 @@ public class PortalBehaviorPUN : MonoBehaviour
 
         Debug.DrawLine(transform.position, Player.position, Color.green, Time.deltaTime);
         Debug.DrawRay(transform.position, transform.up * 10, Color.red, Time.deltaTime);
+        Debug.DrawRay(overlayCamera.position, overlayCamera.forward * 10, Color.blue, Time.deltaTime);
 
-        overlayCamera.rotation = overlayCamStartRotation;
-        overlayCamera.position = overlayCamStartPosition;
+        overlayCamera.localRotation = overlayCamStartRotation;
+        overlayCamera.localPosition = overlayCamStartPosition;
         overlayCamera.RotateAround(transform.position, transform.forward, OtherPortal.GetPlayerAngleDiffY());
         overlayCamera.RotateAround(transform.position, transform.right, OtherPortal.GetPlayerAngleDiffX() * -1);
 
@@ -57,22 +58,10 @@ public class PortalBehaviorPUN : MonoBehaviour
         }
         
         portable.CurrentPortingState = PortingState.Started;
-        Debug.Log("started");
+        Debug.LogError("change to started");
         portable.PortingPortal = transform;
         portable.PortingMvmnt.PortingDirection = OtherPortal.transform.up;
         portable.PortingMvmnt.PortingFromDirection = transform.up;
-
-        //Rigidbody rb = other.GetComponent<Rigidbody>();
-        // position
-        //rb.position = OtherPortal.spawnPosition.position;
-        // rotation
-        //float playerAngleDiff = Vector3.SignedAngle(transform.up * -1, other.transform.forward, Vector3.up);
-        /*float x = rb.rotation.eulerAngles.x;
-        float y = OtherPortal.transform.rotation.eulerAngles.y;
-        float z = rb.rotation.eulerAngles.z;
-        rb.rotation = Quaternion.Euler(x, y + playerAngleDiff, z);*/
-        //rb.transform.forward = OtherPortal.transform.up;
-        //rb.transform.Rotate(new Vector3(0, playerAngleDiff * -1, 0), Space.World);
     }
 
     public float GetPlayerAngleDiffY()
