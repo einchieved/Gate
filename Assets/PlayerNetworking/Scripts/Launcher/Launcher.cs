@@ -32,6 +32,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             
             public void Connect()
             {
+                Cursor.lockState = CursorLockMode.Locked;
                 progressLabel.SetActive(true);
                 controlPanel.SetActive(false);
                 

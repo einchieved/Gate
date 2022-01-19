@@ -5,7 +5,7 @@ public class PortingCancel : MonoBehaviour
 {
     private Collider coll;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         IPortable portable = other.GetComponent<IPortable>();
         if (portable.CurrentPortingState == PortingState.InProgress)
@@ -19,13 +19,13 @@ public class PortingCancel : MonoBehaviour
             coll = other;
         }*/
     }
-
+/*
     private void OnTriggerExit(Collider other)
-    {/*
+    {
         IPortable portable = other.GetComponent<IPortable>();
         if (other == coll && portable.CurrentPortingState == PortingState.InProgress)
         {
             portable.CurrentPortingState = PortingState.Ending;
-        }*/
-    }
+        }
+    }*/
 }

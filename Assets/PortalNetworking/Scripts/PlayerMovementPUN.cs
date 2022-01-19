@@ -13,6 +13,7 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
     private Rigidbody rb;
     private float vertical, horizontal, mouseX, mouseY;
     private PortingMovementPUN portingMovement;
+    private Animator animator;
 
     public PortingState CurrentPortingState { get; set; }
     public PortingMovementPUN PortingMvmnt => portingMovement;
@@ -31,6 +32,10 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
             Destroy(GetComponent<CapsuleCollider>());
             Destroy(portingMovement);
             return;
+        }
+        else
+        {
+            animator = GetComponent<Animator>();
         }
 
         CurrentPortingState = PortingState.NoPorting;
@@ -53,6 +58,9 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
         xRotation -= (mouseY * Time.deltaTime);
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+        animator.SetFloat("forward", vertical);
+        animator.SetFloat("right", horizontal);
     }
 
     private void FixedUpdate()
