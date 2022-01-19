@@ -13,7 +13,7 @@ public class GroundCheck : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && animator != null)
         {
             animator.SetBool("isGrounded", true);
         }
@@ -21,7 +21,7 @@ public class GroundCheck : MonoBehaviourPun
 
     private void OnTriggerExit(Collider other)
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && animator != null)
         {
             animator.SetBool("isGrounded", false);
         }
