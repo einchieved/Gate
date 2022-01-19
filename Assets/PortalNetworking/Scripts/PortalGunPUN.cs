@@ -46,6 +46,7 @@ public class PortalGunPUN : MonoBehaviourPun
             return;
         }
 
+        int viewID = hitInfo.transform.gameObject.GetComponent<PhotonView>().ViewID;
         Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.03f; //0.01
         // adjust rotation
         Vector3 forwrd = hitInfo.transform.up * -1;
@@ -55,7 +56,7 @@ public class PortalGunPUN : MonoBehaviourPun
         {
             hasRelativeRotation = true;
         }
-        object[] data = new object[] { newPortalPosition, forwrd, hasRelativeRotation, isBlue };
+        object[] data = new object[] { newPortalPosition, forwrd, hasRelativeRotation, isBlue, viewID};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(PortalHandlerPUN.CreatePortalEventCode, data, raiseEventOptions, SendOptions.SendReliable);
     }

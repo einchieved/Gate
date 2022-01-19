@@ -32,7 +32,7 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
         photonView.RPC(methodName, target, parameters);
     }
 
-    public void CreatePortal(Vector3 pos, Vector3 forwrd, bool hasRelativeRotation, bool isBlue)
+    public void CreatePortal(Vector3 pos, Vector3 forwrd, bool hasRelativeRotation, bool isBlue, Transform platform)
     {
         if (!photonView.IsMine)
         {
@@ -65,6 +65,8 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
         }
 
         newPortal.transform.forward = forwrd;
+        newPortal.transform.parent = platform;
+
         if (hasRelativeRotation)
         {
             Vector3 eulerAngles = newPortal.transform.rotation.eulerAngles;
@@ -99,7 +101,15 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             Vector3 forwrd = (Vector3)data[1];
             bool hasRelativeRotation = (bool)data[2];
             bool isBlue = (bool)data[3];
-            CreatePortal(pos, forwrd, hasRelativeRotation, isBlue);
+            int viewID = (int) data[4];
+
+            Transform platform = null;
+            if (viewID != null)
+            {
+                platform = PhotonView.Find(viewID).gameObject.transform;
+            }
+            
+            CreatePortal(pos, forwrd, hasRelativeRotation, isBlue, platform);
         }
     }
 
