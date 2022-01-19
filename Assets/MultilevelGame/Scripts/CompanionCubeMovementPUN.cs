@@ -9,7 +9,7 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     private Vector3 lastVelocity, lastPosition;
     private PortingState currentPortingSate;
 
-    public PortingState CurrentPortingState { get => currentPortingSate; set => SetCurrentPortingState(value); }
+    public PortingState CurrentPortingState { get => currentPortingSate; set => /*SetCurrentPortingState(value)*/ currentPortingSate = value; }
     public Transform PortingPortal { get; set; }
     public PortingMovementPUN PortingMvmnt => portingMovement;
 
@@ -92,10 +92,10 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     {
         if (stream.IsWriting)
         {
-            if (!photonView.IsMine)
+            /*if (!photonView.IsMine)
             {
                 return;
-            }
+            }*/
             stream.SendNext(CurrentPortingState);
             stream.SendNext(gameObject.layer);
         }
