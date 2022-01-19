@@ -26,7 +26,7 @@ public class CreationPUN : MonoBehaviourPun
         if (gameObject != null)
         {
             Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
-            rigidbody.AddForce(transform.forward * 2000); 
+            rigidbody.AddForce(transform.forward * 4000); 
         }
     }
     
