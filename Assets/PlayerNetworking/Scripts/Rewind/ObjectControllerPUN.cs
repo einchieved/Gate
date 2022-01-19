@@ -24,6 +24,7 @@ public class ObjectControllerPUN : ControllerPUN, ITimeControlablePUN
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            ResetAll();
             photonView.RPC(nameof(ResetAll), RpcTarget.All);
         }
     }
@@ -34,8 +35,8 @@ public class ObjectControllerPUN : ControllerPUN, ITimeControlablePUN
     }
     
     [PunRPC]
-    private void ResetAll() {
-        _statesOverTime.Reset();
+    protected override void ResetAll() {
+        base.ResetAll();
     }
     
     public bool IsFocused { get; set; }

@@ -7,6 +7,8 @@ TagManager:
   - CompanionCube
   - P1
   - P2
+  - StartTime
+  - StartPortal
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,11 @@ public class DestinationScript : MonoBehaviour
         Debug.Log("Trigger entered");
         if (other.gameObject.CompareTag("CompanionCube"))
         {
-            PhotonNetwork.LoadLevel("Level0" + nextLevel);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(other.gameObject);
+                PhotonNetwork.LoadLevel("Level0" + nextLevel); 
+            }
         }    
     }
 }
