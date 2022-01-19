@@ -14,7 +14,7 @@ public class ObjectControllerPUN : ControllerPUN, ITimeControlablePUN
         if (IsFocused)
         {
             HandleRewind(KeyCode.E, KeyCode.T);
-            Debug.Log("isFocused");
+            //Debug.Log("isFocused");
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))

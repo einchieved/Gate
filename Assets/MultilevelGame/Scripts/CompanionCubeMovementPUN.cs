@@ -7,9 +7,9 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     private PortingMovementPUN portingMovement;
     private Rigidbody rb;
     private Vector3 lastVelocity, lastPosition;
-    private PortingState currentPortingSate;
+    private PortingState currentPortingState;
 
-    public PortingState CurrentPortingState { get => currentPortingSate; set => /*SetCurrentPortingState(value)*/ currentPortingSate = value; }
+    public PortingState CurrentPortingState { get => currentPortingState; set => SetCurrentPortingState(value); }
     public Transform PortingPortal { get; set; }
     public PortingMovementPUN PortingMvmnt => portingMovement;
 
@@ -17,7 +17,7 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     {
         if (photonView.IsMine)
         {
-            currentPortingSate = val;
+            currentPortingState = val;
         }
     }
 
@@ -25,7 +25,7 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     void Start()
     {
         portingMovement = GetComponent<PortingMovementPUN>();
-        CurrentPortingState = PortingState.NoPorting;
+        currentPortingState = PortingState.NoPorting;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -92,10 +92,6 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     {
         if (stream.IsWriting)
         {
-            /*if (!photonView.IsMine)
-            {
-                return;
-            }*/
             stream.SendNext(CurrentPortingState);
             stream.SendNext(gameObject.layer);
         }
