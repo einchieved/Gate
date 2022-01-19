@@ -14,6 +14,9 @@ public class DestinationScript : MonoBehaviour
         {
             if (PhotonNetwork.IsMasterClient)
             {
+                GameObject playerOne = GameObject.FindWithTag("P1");
+                playerOne.transform.parent = null;
+
                 PhotonNetwork.Destroy(other.gameObject);
                 PhotonNetwork.LoadLevel("Level0" + nextLevel); 
             }

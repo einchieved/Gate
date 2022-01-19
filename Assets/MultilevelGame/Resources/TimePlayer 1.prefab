@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 1153935081319034244}
   - component: {fileID: 7341540084370941283}
   m_Layer: 3
-  m_Name: TimePlayer
+  m_Name: TimePlayer 1
   m_TagString: P2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,7 +536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365ff53b490e4c6b9e36c6392daf89fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &3397616162931716733
 MonoBehaviour:
   m_ObjectHideFlags: 0
