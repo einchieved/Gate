@@ -101,9 +101,10 @@ public class PortingMovementPUN : MonoBehaviourPun
     {
         Debug.LogError("PortVel");
         // find origin dir
-        float x = Mathf.Abs(PortingFromDirection.x);
-        float y = Mathf.Abs(PortingFromDirection.y);
-        float z = Mathf.Abs(PortingFromDirection.z);
+        Vector3 portfromDirNorm = PortingFromDirection.normalized;
+        float x = Mathf.Abs(portfromDirNorm.x);
+        float y = Mathf.Abs(portfromDirNorm.y);
+        float z = Mathf.Abs(portfromDirNorm.z);
         float updater;
         if (x > y && x > z)
         {
@@ -119,6 +120,6 @@ public class PortingMovementPUN : MonoBehaviourPun
         }
 
         // find exit dir;
-        return PortingDirection * updater;
+        return PortingDirection.normalized * updater;
     }
 }
