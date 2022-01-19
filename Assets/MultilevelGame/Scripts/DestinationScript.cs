@@ -9,7 +9,8 @@ public class DestinationScript : MonoBehaviourPun
         Debug.LogError("Trigger entered");
         if (other.gameObject.CompareTag("CompanionCube"))
         {
-            photonView.RPC(nameof(LoadLevel), RpcTarget.MasterClient, other);
+            PhotonNetwork.Destroy(other.gameObject);
+            photonView.RPC(nameof(LoadLevel), RpcTarget.MasterClient);
         }    
     }
 
@@ -26,10 +27,9 @@ public class DestinationScript : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void LoadLevel(Collision other)
+    public void LoadLevel()
     {
         photonView.RPC(nameof(LoadPrep), RpcTarget.All);
-        PhotonNetwork.Destroy(other.gameObject);
         PhotonNetwork.LoadLevel("Level0" + nextLevel);
     }
 }
