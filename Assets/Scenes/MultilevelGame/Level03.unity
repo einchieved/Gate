@@ -1390,7 +1390,6 @@ GameObject:
   - component: {fileID: 1472010718}
   - component: {fileID: 1472010717}
   - component: {fileID: 1472010716}
-  - component: {fileID: 1472010715}
   - component: {fileID: 1472010713}
   - component: {fileID: 1472010714}
   m_Layer: 16
@@ -1431,19 +1430,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &1472010715
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472010712}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1472010716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2099,7 +2085,6 @@ GameObject:
   - component: {fileID: 2124452994}
   - component: {fileID: 2124452993}
   - component: {fileID: 2124452992}
-  - component: {fileID: 2124452991}
   - component: {fileID: 2124452990}
   - component: {fileID: 2124452989}
   m_Layer: 16
@@ -2140,19 +2125,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &2124452991
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124452988}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &2124452992
 BoxCollider:
   m_ObjectHideFlags: 0

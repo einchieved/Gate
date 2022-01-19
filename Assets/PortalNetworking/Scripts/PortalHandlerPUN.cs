@@ -64,8 +64,14 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             orangePortalHandler.AssignPlayer(portalCamRefPoint);
         }
 
+
         newPortal.transform.forward = forwrd;
-        newPortal.transform.parent = platform;
+
+        if (platform != null)
+        {
+            newPortal.transform.parent = platform;
+            newPortal.transform.localPosition = Vector3.zero + AbsVector3(platform.up) * 0.03f;
+        }
 
         if (hasRelativeRotation)
         {
@@ -121,5 +127,14 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
     private void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
+    }
+
+    private Vector3 AbsVector3(Vector3 vector)
+    {
+        Vector3 absVector = Vector3.zero;
+        absVector.x = Mathf.Abs(vector.x);
+        absVector.y = Mathf.Abs(vector.y);
+        absVector.z = Mathf.Abs(vector.z);
+        return absVector;
     }
 }
