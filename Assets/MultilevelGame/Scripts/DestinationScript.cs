@@ -9,12 +9,7 @@ public class DestinationScript : MonoBehaviourPun
         Debug.LogError("Trigger entered");
         if (other.gameObject.CompareTag("CompanionCube"))
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                photonView.RPC(nameof(LoadPrep), RpcTarget.All);
-                PhotonNetwork.Destroy(other.gameObject);
-                PhotonNetwork.LoadLevel("Level0" + nextLevel); 
-            }
+            photonView.RPC(nameof(LoadLevel), RpcTarget.MasterClient, other);
         }    
     }
 
@@ -28,5 +23,13 @@ public class DestinationScript : MonoBehaviourPun
         GameObject playerTwo = GameObject.FindWithTag("P2");
         playerTwo.transform.parent = null;
         DontDestroyOnLoad(playerTwo);
+    }
+
+    [PunRPC]
+    public void LoadLevel(Collision other)
+    {
+        photonView.RPC(nameof(LoadPrep), RpcTarget.All);
+        PhotonNetwork.Destroy(other.gameObject);
+        PhotonNetwork.LoadLevel("Level0" + nextLevel);
     }
 }
