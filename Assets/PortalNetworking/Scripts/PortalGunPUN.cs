@@ -46,7 +46,12 @@ public class PortalGunPUN : MonoBehaviourPun
             return;
         }
 
-        int viewID = hitInfo.transform.gameObject.GetComponent<PhotonView>().ViewID;
+        int viewID = -1;
+        if (hitInfo.transform.gameObject.GetComponent<PortalAsChildMarker>() != null)
+        {
+            viewID = hitInfo.transform.gameObject.GetComponent<PhotonView>().ViewID;
+        }
+        
         Vector3 newPortalPosition = hitInfo.point + hitInfo.transform.up * 0.03f; //0.01
         // adjust rotation
         Vector3 forwrd = hitInfo.transform.up * -1;

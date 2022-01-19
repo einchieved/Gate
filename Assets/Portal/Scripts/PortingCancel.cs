@@ -13,19 +13,5 @@ public class PortingCancel : MonoBehaviour
             portable.CurrentPortingState = PortingState.Ending;
             Debug.LogError("cancled");
         }
-
-        /*if (portable != null && portable.CurrentPortingState == PortingState.InProgress)
-        {
-            coll = other;
-        }*/
     }
-/*
-    private void OnTriggerExit(Collider other)
-    {
-        IPortable portable = other.GetComponent<IPortable>();
-        if (other == coll && portable.CurrentPortingState == PortingState.InProgress)
-        {
-            portable.CurrentPortingState = PortingState.Ending;
-        }
-    }*/
 }

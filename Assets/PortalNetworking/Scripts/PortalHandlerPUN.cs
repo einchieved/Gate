@@ -104,7 +104,7 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             int viewID = (int) data[4];
 
             Transform platform = null;
-            if (viewID != null)
+            if (viewID != -1)
             {
                 platform = PhotonView.Find(viewID).gameObject.transform;
             }
