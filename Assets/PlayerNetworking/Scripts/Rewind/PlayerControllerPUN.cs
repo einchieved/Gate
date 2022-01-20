@@ -28,4 +28,10 @@ public class PlayerControllerPUN : ControllerPUN
     {
         
     }
+    
+    [PunRPC]
+    protected override void ResetAll()
+    {
+        
+    }
 }

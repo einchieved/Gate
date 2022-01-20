@@ -77,6 +77,6 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         public override void OnJoinedRoom()
         {
-            PhotonNetwork.LoadLevel("Level01");
+            PhotonNetwork.LoadLevel("TheChoiceIsYours");
         }
 }

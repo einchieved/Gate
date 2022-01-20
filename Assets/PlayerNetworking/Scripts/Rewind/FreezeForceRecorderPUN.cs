@@ -14,7 +14,7 @@ public class FreezeForceRecorderPUN
 
     public void AddForce(Vector3 force)
     {
-        storedImpuls += force;
+        storedImpuls += force * 3;
     }
 
     public void UnFreeze()

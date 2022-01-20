@@ -32,7 +32,7 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
         photonView.RPC(methodName, target, parameters);
     }
 
-    public void CreatePortal(Vector3 pos, Vector3 forwrd, bool hasRelativeRotation, bool isBlue)
+    public void CreatePortal(Vector3 pos, Vector3 forwrd, bool hasRelativeRotation, bool isBlue, Transform platform)
     {
         if (!photonView.IsMine)
         {
@@ -64,7 +64,15 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             orangePortalHandler.AssignPlayer(portalCamRefPoint);
         }
 
+
         newPortal.transform.forward = forwrd;
+
+        if (platform != null)
+        {
+            newPortal.transform.parent = platform;
+            newPortal.transform.localPosition = Vector3.zero + AbsVector3(platform.up) * 0.03f;
+        }
+
         if (hasRelativeRotation)
         {
             Vector3 eulerAngles = newPortal.transform.rotation.eulerAngles;
@@ -99,7 +107,15 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
             Vector3 forwrd = (Vector3)data[1];
             bool hasRelativeRotation = (bool)data[2];
             bool isBlue = (bool)data[3];
-            CreatePortal(pos, forwrd, hasRelativeRotation, isBlue);
+            int viewID = (int) data[4];
+
+            Transform platform = null;
+            if (viewID != -1)
+            {
+                platform = PhotonView.Find(viewID).gameObject.transform;
+            }
+            
+            CreatePortal(pos, forwrd, hasRelativeRotation, isBlue, platform);
         }
     }
 
@@ -111,5 +127,14 @@ public class PortalHandlerPUN : MonoBehaviourPun, IOnEventCallback
     private void OnDisable()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
+    }
+
+    private Vector3 AbsVector3(Vector3 vector)
+    {
+        Vector3 absVector = Vector3.zero;
+        absVector.x = Mathf.Abs(vector.x);
+        absVector.y = Mathf.Abs(vector.y);
+        absVector.z = Mathf.Abs(vector.z);
+        return absVector;
     }
 }

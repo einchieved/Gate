@@ -37,6 +37,7 @@ public class GravityGun : MonoBehaviourPun
                 if (Vector3.Distance(transform.position, hit.transform.position) < grabDistance)
                 {
                     objOnGun = hit.transform.gameObject;
+                    objOnGun.GetComponent<PhotonView>().TransferOwnership(photonView.Owner);
                     objOnGun.transform.position = transform.position;
                     objOnGun.GetComponent<Rigidbody>().isKinematic = true;
                     objOnGun.transform.parent = transform;

@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MultilevelGame/Launcher.unity
     guid: 383c2bf00f4b248c9acfb88fac47936c
   - enabled: 1
+    path: Assets/Scenes/MultilevelGame/TheChoiceIsYours.unity
+    guid: 1009ac65b2d494c6885fd6e5ff1ced42
+  - enabled: 1
     path: Assets/Scenes/MultilevelGame/Level01.unity
     guid: e245d12cf97244265aeeb9b3c1133e35
   - enabled: 1

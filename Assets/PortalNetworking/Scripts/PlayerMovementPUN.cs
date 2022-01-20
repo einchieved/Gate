@@ -28,8 +28,8 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
         if (!photonView.IsMine)
         {
             Destroy(cam.gameObject);
-            Destroy(rb);
-            Destroy(GetComponent<CapsuleCollider>());
+           // Destroy(rb);
+           // Destroy(GetComponent<CapsuleCollider>());
             Destroy(portingMovement);
             return;
         }

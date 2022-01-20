@@ -7,9 +7,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     public static GameObject LocalPlayerInstance;
-
-    public Vector3 respawnPoint;
-
+    
     private void Awake()
     {
         if (photonView.IsMine)

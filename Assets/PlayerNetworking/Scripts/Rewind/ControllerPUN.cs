@@ -103,6 +103,13 @@ public class ControllerPUN: MonoBehaviourPun
         }
     }
     
+    protected virtual void ResetAll()
+    {
+        _statesOverTime = new StateCollectionPUN();
+        timeReverser = new TimeReverserPUN(_rb, _statesOverTime);
+        stateRecorder = new StateRecorderPUN(_rb, _statesOverTime);
+    }
+    
 
     protected virtual void FreezeAll()
     {
