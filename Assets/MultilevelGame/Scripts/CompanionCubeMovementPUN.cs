@@ -56,7 +56,6 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
                 break;
             case PortingState.InProgress:
                 portingMovement.UpdateClone();
-                //Debug.LogError("updating");
                 break;
             case PortingState.Porting:
                 portingMovement.SwitchPlaceWithClone();
@@ -94,11 +93,13 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
         {
             stream.SendNext(CurrentPortingState);
             stream.SendNext(gameObject.layer);
+            stream.SendNext(rb.isKinematic); // this property is not syncronized by PUN
         }
         else
         {
             CurrentPortingState = (PortingState)stream.ReceiveNext();
             gameObject.layer = (int)stream.ReceiveNext();
+            rb.isKinematic = (bool)stream.ReceiveNext();
         }
     }
 }
