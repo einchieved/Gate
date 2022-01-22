@@ -1,7 +1,3 @@
-using DefaultNamespace;
-using Photon.Pun;
-using UnityEngine;
-
 public class StateCollectionPUN
 {
     private readonly int size = 600;

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 
 public class ChoosePlayer : MonoBehaviourPun
