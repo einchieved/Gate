@@ -2,6 +2,9 @@ using Photon.Pun;
 using UnityEngine;
 using static IPortable;
 
+/// <summary>
+/// Class to control a player in a co-op game
+/// </summary>
 public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
 {
     public float speed = 80f;
@@ -65,17 +68,19 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
 
     private void FixedUpdate()
     {
+        // only update this if I control this object
         if (!photonView.IsMine)
         {
             return;
         }
+        // handling of the porting behavior
         switch (CurrentPortingState)
         {
             case PortingState.Started:
                 PortalBehaviorPUN pt = PortingPortal.GetComponent<PortalBehaviorPUN>();
                 Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
                 portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform, GetComponent<Renderer>().material);
-                gameObject.layer = 12;
+                gameObject.layer = 12; //Porting Layer
                 CurrentPortingState = PortingState.InProgress;
                 break;
             case PortingState.InProgress:
@@ -111,6 +116,7 @@ public class PlayerMovementPUN : MonoBehaviourPun,  IPortable
         ClampVelocity();
     }
 
+    // Caps the player velocity at a set maximum
     private void ClampVelocity()
     {
         Vector3 vel = rb.velocity;

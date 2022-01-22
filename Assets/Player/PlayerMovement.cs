@@ -1,6 +1,10 @@
 using UnityEngine;
 using static IPortable;
 
+
+/// <summary>
+/// This class doesn't work anymore. It is only used for reference.
+/// </summary>
 public class PlayerMovement : MonoBehaviour//,  IPortable
 {
     public float speed = 200f;
@@ -47,6 +51,7 @@ public class PlayerMovement : MonoBehaviour//,  IPortable
 
     private void FixedUpdate()
     {
+        // portingstate handling
         if (CurrentPortingState != PortingState.NoPorting)
         {
             switch (CurrentPortingState)
@@ -55,7 +60,7 @@ public class PlayerMovement : MonoBehaviour//,  IPortable
                     PortalTravel pt = PortingPortal.GetComponent<PortalTravel>();
                     Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
                     portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
-                    gameObject.layer = 12;
+                    gameObject.layer = 12; // Porting Layer
                     CurrentPortingState = PortingState.InProgress;
                     break;
                 case PortingState.InProgress:
@@ -92,6 +97,7 @@ public class PlayerMovement : MonoBehaviour//,  IPortable
         ClampVelocity();
     }
 
+    // Caps the player velocity to a set maximum
     private void ClampVelocity()
     {
         Vector3 vel = rb.velocity;

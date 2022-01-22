@@ -1,12 +1,18 @@
 using UnityEngine;
 
+/// <summary>
+/// Singleplayer portal gun
+/// </summary>
 public class PortalGun : MonoBehaviour
 {
+    // different materials for the portals
     public Material blueDefaultMaterial, orangeDefaultMaterial, blueMaterial, orangeMaterial;
     public GameObject portalPrefab;
 
     private GameObject bluePortal, orangePortal;
+    // the portals are updated via the PortalParentHandler
     private PortalParentHandler bluePortalHandler, orangePortalHandler;
+    // target rendertextures for portal cameras
     private RenderTexture blueRenderTexture, orangeRenderTexture;
     private Transform cam;
 
@@ -16,6 +22,7 @@ public class PortalGun : MonoBehaviour
     private void Start()
     {
         cam = GetComponentInChildren<Camera>().transform;
+        // Create new rendertextures and assign them to the materials. These materials were created using ShaderGraph.
         blueRenderTexture = new RenderTexture(512, 1024, 24);
         blueMaterial.SetTexture("Texture2D_e963585dc5b44a5b86d21edb99ea03f2", blueRenderTexture);
         orangeRenderTexture = new RenderTexture(512, 1024, 24);
@@ -64,6 +71,7 @@ public class PortalGun : MonoBehaviour
         // raycast
         Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo);
         int targetLayer = hitInfo.transform.gameObject.layer;
+        // portals should only be placed on objects in layer 9 or 10
         if (targetLayer != 9 && targetLayer != 10)
         {
             return false;

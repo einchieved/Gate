@@ -3,6 +3,9 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
+/// <summary>
+/// Co-op portal gun
+/// </summary>
 public class PortalGunPUN : MonoBehaviourPun
 {
     private Transform cam;
@@ -37,15 +40,20 @@ public class PortalGunPUN : MonoBehaviourPun
         }
     }
 
+    // each client instantiates the portal for themselves
     private void CreatePortal(bool isBlue)
     {
         Physics.Raycast(cam.position, cam.forward, out RaycastHit hitInfo);
         int targetLayer = hitInfo.transform.gameObject.layer;
+        // portals should only be placed on objects in layer 9 or 10
         if (targetLayer != 9 && targetLayer != 10)
         {
             return;
         }
 
+        // if the target has a marker class that indicates that the portal should be a child gameobject
+        // the viewid is required to find that object on all clients
+        // -1 means to place the portal not as a child
         int viewID = -1;
         if (hitInfo.transform.gameObject.GetComponent<PortalAsChildMarker>() != null)
         {
@@ -61,7 +69,8 @@ public class PortalGunPUN : MonoBehaviourPun
         {
             hasRelativeRotation = true;
         }
-        object[] data = new object[] { newPortalPosition, forwrd, hasRelativeRotation, isBlue, viewID};
+        // raise event
+        object[] data = new object[] { newPortalPosition, forwrd, hasRelativeRotation, transform.rotation.eulerAngles.y, isBlue, viewID};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         PhotonNetwork.RaiseEvent(PortalHandlerPUN.CreatePortalEventCode, data, raiseEventOptions, SendOptions.SendReliable);
     }
