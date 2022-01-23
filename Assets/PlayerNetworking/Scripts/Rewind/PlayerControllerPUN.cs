@@ -16,6 +16,7 @@ public class PlayerControllerPUN : ControllerPUN
 
     void FixedUpdate()
     {
+        /// enable object detection only for my own player
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
@@ -26,12 +27,10 @@ public class PlayerControllerPUN : ControllerPUN
     [PunRPC]
     protected override void FreezeAll()
     {
-        
     }
     
     [PunRPC]
     protected override void ResetAll()
     {
-        
     }
 }

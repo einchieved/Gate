@@ -1,21 +1,25 @@
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// First time spawning in a new level
+/// </summary>
 public class Spawn : MonoBehaviour
 {
     public GameObject p1spawn; 
     public GameObject p2spawn; 
 
-    // Start is called before the first frame update
     void Start()
     {
         switch (PhotonNetwork.CurrentRoom.PlayerCount)
         {
             case 1: 
+                // spawn one player
                 GameObject p1 = GameObject.FindWithTag("P1");
                 p1.gameObject.transform.position = p1spawn.transform.position;
                 break;
             case 2:
+                // spawn both player
                 GameObject playerOne = GameObject.FindWithTag("P1");
                 if (playerOne != null)
                 {

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Attaches player to gameobject(platform) by making him to a child object
+/// </summary>
 public class AttachPlayer : MonoBehaviour
 {
     private void OnCollisionEnter(Collision other)

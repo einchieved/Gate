@@ -1,6 +1,9 @@
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// Checks if both player have choosen there capability and loads the first level afterwards 
+/// </summary>
 public class ChoosePlayer : MonoBehaviourPun
 {
 
@@ -23,11 +26,14 @@ public class ChoosePlayer : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
+        
+        // both player must be on the platform
         if (playercheckPortal == null || playercheckTime == null)
         {
             return;
         }
 
+        // after both player entered a specific platform the first level is loaded
         if (playercheckPortal.player != null && playercheckTime.player != null && PhotonNetwork.IsMasterClient)
         {
             photonView.RPC(nameof(DestroyAndCreate), RpcTarget.All);
@@ -38,11 +44,13 @@ public class ChoosePlayer : MonoBehaviourPun
             }
         }
     }
-
+    /// <summary>
+    /// User gets the choosed player instead of the default one
+    /// </summary>
     [PunRPC]
     public void DestroyAndCreate()
     {
-        if(playercheckTime.player.GetComponent<PhotonView>().IsMine) //oder isMine
+        if(playercheckTime.player.GetComponent<PhotonView>().IsMine)
         {
             PhotonNetwork.Destroy(playercheckTime.player);
             PhotonNetwork.Instantiate(timePlayer.name, new Vector3(), Quaternion.identity);

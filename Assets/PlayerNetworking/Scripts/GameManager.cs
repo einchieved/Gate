@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            // create only a player, when there is no other local instance
             if (PlayerManager.LocalPlayerInstance == null)
             {
                createPlayer(); 
@@ -33,7 +34,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
     
-
+    /// <summary>
+    /// Instantiate Player at the provided spawn point
+    /// </summary>
     private void createPlayer()
     {
         switch (PhotonNetwork.CurrentRoom.PlayerCount )

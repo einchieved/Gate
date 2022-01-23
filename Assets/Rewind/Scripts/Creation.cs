@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
+/// <summary>
+/// Creates objects the player can interact with
+/// </summary>
 public class Creation : MonoBehaviour
 {
     public GameObject cubePrefab;
@@ -10,6 +13,7 @@ public class Creation : MonoBehaviour
     
     void Update()
     {
+        // instantiate projectile
         GameObject gameObject = null;
         if (Input.GetKeyDown(KeyCode.Alpha1))
         { 
@@ -21,6 +25,7 @@ public class Creation : MonoBehaviour
             gameObject = Instantiate(spherePrefab, transform.position, transform.rotation);
         }
 
+        // let the created object move in a direction
         if (gameObject != null)
         {
             Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
