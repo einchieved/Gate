@@ -25,7 +25,7 @@ public class TimeReverserPUN
     {
         double diffInSeconds = (DateTime.Now - timeOfMeasurement).TotalSeconds;
 
-        // retrieve state ever 0.2 seconds
+        // retrieve state every 0.2 seconds
         if (diffInSeconds > 0.2)
         {
             // make sure a state is available and adapt the rigidbody accordingly to the state

@@ -1,6 +1,9 @@
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// Enables time manipulation for player
+/// </summary>
 public class PlayerControllerPUN : ControllerPUN
 {
     public Transform cam;

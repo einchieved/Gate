@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace DefaultNamespace
 {
+    /// <summary>
+    /// Holds state information of an gameobject
+    /// </summary>
     public class State
     {
         public State(Vector3 position, Vector3 velocity, Quaternion rotation)
@@ -21,6 +24,11 @@ namespace DefaultNamespace
             return "position: " + Position + " | velocity: " + Velocity + " | rotation: " + Rotation;
         }
 
+        /// <summary>
+        /// Checks if the provided state equals this one
+        /// </summary>
+        /// <param name="other">another state</param>
+        /// <returns>true if the state are equal in velocity, rotation and position, else false</returns>
         public bool Equals(State other)
         {
             return Position.x.Equals(other.Position.x) &&  Position.y.Equals(other.Position.y) && Position.z.Equals(other.Position.z)  

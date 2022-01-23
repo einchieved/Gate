@@ -5,6 +5,9 @@ using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
+/// <summary>
+/// Enables time manipulation for player
+/// </summary>
 public class PlayerController : Controller
 {
     // Start is called before the first frame update
@@ -39,6 +42,9 @@ public class PlayerController : Controller
         objectDetection.DetectObject();
     }
 
+    /// <summary>
+    /// deprecated movement script
+    /// </summary>
     private void HandleMovement()
     {
         float vertical = Input.GetAxis("Vertical");
