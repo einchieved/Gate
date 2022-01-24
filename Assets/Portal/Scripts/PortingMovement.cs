@@ -1,13 +1,21 @@
 using UnityEngine;
 
+/// <summary>
+/// Singleplayer ONLY
+/// This class takes care of the teleporting clone and teleporting velocity.
+/// </summary>
 public class PortingMovement : MonoBehaviour
 {
+    // the gameobject used to represent a clone during the porting process
     public GameObject cloneGameObject;
 
+    // the exit direction of the teleporting process
     public Vector3 PortingDirection { get; set; }
+    // the entry direction of the teleporting process
     public Vector3 PortingFromDirection { get; set; }
 
     private Rigidbody rb;
+    // used to calculate the exit velocity after teleporting
     private Vector3 lastvelocity;
     private Transform clone, originalPortal, clonePortal;
 
@@ -19,6 +27,7 @@ public class PortingMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // keep the velocity of the current frame
         lastvelocity = rb.velocity;
     }
 
@@ -30,6 +39,7 @@ public class PortingMovement : MonoBehaviour
         }
     }
 
+    // switches the objects position with the clone position
     public void SwitchPlaceWithClone()
     {
         rb.position = clone.position;
@@ -54,12 +64,16 @@ public class PortingMovement : MonoBehaviour
         this.clonePortal = clonePortal;
         clone = Instantiate(cloneGameObject, clonePortal.position, Quaternion.identity).transform;
         clone.parent = clonePortal;
-        clone.gameObject.layer = 13; //ClonePlayer
+        clone.gameObject.layer = 13; //Clone Layer
         UpdateClone();
     }
 
     #region clone update
 
+    /// <summary>
+    /// Updates the clone position/ rotation to the exit portal, depending on
+    /// the players position/rotation to the entry portal
+    /// </summary>
     public void UpdateClone()
     {
         UpdateClonePosition();
@@ -88,6 +102,8 @@ public class PortingMovement : MonoBehaviour
 
     #endregion
 
+    // calculates the velocity of this object when exiting the second portal
+    // only a simplification
     private Vector3 DeterminePortingVelocity()
     {
         // find origin dir

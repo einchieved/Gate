@@ -13,6 +13,7 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
     public Transform PortingPortal { get; set; }
     public PortingMovementPUN PortingMvmnt => portingMovement;
 
+    // update field via method, because photonView.IsMine cannot be called in property
     private void SetCurrentPortingState(PortingState val)
     {
         if (photonView.IsMine)
@@ -44,31 +45,28 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
             return;
         }
 
+        // prtingstate handling
         switch (CurrentPortingState)
         {
             case PortingState.Started:
                 PortalBehaviorPUN pt = PortingPortal.GetComponent<PortalBehaviorPUN>();
                 Transform otherPortalTransform = pt.OtherPortal.spawnPosition;
                 portingMovement.InstantiateClone(pt.spawnPosition, otherPortalTransform);
-                gameObject.layer = 12;
+                gameObject.layer = 12; //Porting Layer
                 CurrentPortingState = PortingState.InProgress;
-                Debug.LogError("started");
                 break;
             case PortingState.InProgress:
                 portingMovement.UpdateClone();
-                //Debug.LogError("updating");
                 break;
             case PortingState.Porting:
                 portingMovement.SwitchPlaceWithClone();
                 portingMovement.UpdateClone();
                 CurrentPortingState = PortingState.InProgress;
-                Debug.LogError("porting");
                 break;
             case PortingState.Ending:
                 portingMovement.DestroyClone();
                 gameObject.layer = 8; //CubeTime
                 CurrentPortingState = PortingState.NoPorting;
-                Debug.LogError("ending");
                 break;
             default:
                 break;
@@ -94,11 +92,13 @@ public class CompanionCubeMovementPUN : MonoBehaviourPun, IPortable, IPunObserva
         {
             stream.SendNext(CurrentPortingState);
             stream.SendNext(gameObject.layer);
+            stream.SendNext(rb.isKinematic); // this property is not syncronized by PUN
         }
         else
         {
             CurrentPortingState = (PortingState)stream.ReceiveNext();
             gameObject.layer = (int)stream.ReceiveNext();
+            rb.isKinematic = (bool)stream.ReceiveNext();
         }
     }
 }

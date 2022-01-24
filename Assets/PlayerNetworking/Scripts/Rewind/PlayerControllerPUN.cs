@@ -1,6 +1,9 @@
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// Enables time manipulation for player
+/// </summary>
 public class PlayerControllerPUN : ControllerPUN
 {
     public Transform cam;
@@ -16,6 +19,7 @@ public class PlayerControllerPUN : ControllerPUN
 
     void FixedUpdate()
     {
+        /// enable object detection only for my own player
         if (!photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
@@ -26,12 +30,10 @@ public class PlayerControllerPUN : ControllerPUN
     [PunRPC]
     protected override void FreezeAll()
     {
-        
     }
     
     [PunRPC]
     protected override void ResetAll()
     {
-        
     }
 }

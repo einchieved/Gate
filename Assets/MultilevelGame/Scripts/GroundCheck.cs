@@ -13,6 +13,7 @@ public class GroundCheck : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
+        // null check, because this event could be called before Start()
         if (photonView.IsMine && animator != null)
         {
             animator.SetBool("isGrounded", true);

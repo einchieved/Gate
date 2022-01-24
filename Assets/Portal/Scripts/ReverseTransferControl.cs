@@ -1,10 +1,11 @@
 using UnityEngine;
 using static IPortable;
 
+/// <summary>
+/// Tells the object entering to switch back its place with its clone (if it meets the requirements)
+/// </summary>
 public class ReverseTransferControl : MonoBehaviour
 {
-    private Collider coll;
-
     private void OnTriggerEnter(Collider other)
     {
         IPortable portable = other.GetComponent<IPortable>();

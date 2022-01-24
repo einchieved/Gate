@@ -1,6 +1,10 @@
 using DefaultNamespace;
 using UnityEngine;
 
+/// <summary>
+/// Deprecated
+/// Base class to enable time manipulation on the attached object
+/// </summary>
 public class Controller: MonoBehaviour
 {
     protected Rigidbody _rb;
@@ -12,6 +16,9 @@ public class Controller: MonoBehaviour
     private FreezeForceRecorder freezeForceRecorder;
 
 
+    /// <summary>
+    /// Creates all objects necessary to enable time manipulation on the attached object
+    /// </summary>
     protected void InitStateHandling()
     {
         _statesOverTime = new StateCollection();
@@ -27,19 +34,27 @@ public class Controller: MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
     
+    /// <summary>
+    /// Depending on the input the time manipulation is controlled
+    /// </summary>
+    /// <param name="rewindKey">Keycode which is used to start the rewind</param>
+    /// <param name="endRewindKey">Keycode which is used to end the rewind</param>
     protected void HandleRewind(KeyCode rewindKey, KeyCode endRewindKey)
     {
+        // start rewind
         if (Input.GetKeyDown(rewindKey))
         {
             EnableRewind();
         }
 
+        // end rewind
         if (Input.GetKeyDown(endRewindKey))
         {
             DisableRewind();
             AdaptState();
         }
-
+        
+        // freeze state
         if (Input.GetKeyDown(KeyCode.R))
         {
             Freeze();
@@ -47,6 +62,9 @@ public class Controller: MonoBehaviour
     }
     
 
+    /// <summary>
+    /// Retrieves last state and adapts the object accordingly
+    /// </summary>
     private void AdaptState()
     {
         State lastState = timeReverser.CurrentState;
@@ -60,6 +78,9 @@ public class Controller: MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Adapt object states to enable rewind
+    /// </summary>
     public void EnableRewind()
     {
         _rewind = true;
@@ -67,6 +88,9 @@ public class Controller: MonoBehaviour
         _rb.isKinematic = true;
     }
 
+    /// <summary>
+    /// Adapt object states to disable rewind
+    /// </summary>
     private void DisableRewind()
     {
         _rewind = false;
@@ -76,6 +100,9 @@ public class Controller: MonoBehaviour
         freezeForceRecorder.UnFreeze();
     }
     
+    /// <summary>
+    /// Freezes all focused objects
+    /// </summary>
     protected void Freeze()
     {
         _rewind = false;
@@ -84,6 +111,7 @@ public class Controller: MonoBehaviour
 
     private void FixedUpdate()
     {
+        // if rewind is not set to true, the state recording is active
         if (!_rewind)
         {
             stateRecorder.RecordStates();
@@ -96,6 +124,7 @@ public class Controller: MonoBehaviour
     
     void OnCollisionEnter(Collision collision)
     {
+        // add force of every collision
         freezeForceRecorder.AddForce(collision.relativeVelocity);
     }
 

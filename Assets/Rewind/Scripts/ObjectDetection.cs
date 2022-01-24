@@ -1,6 +1,8 @@
 using UnityEngine;
 
-
+/// <summary>
+/// Provides different possibilities to detect object in you surroundings
+/// </summary>
 public class ObjectDetection
 {
     private PlayerController _playerController;
@@ -12,25 +14,33 @@ public class ObjectDetection
 
     public void DetectObject()
     {
+        // detect single object
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             SelectObject();
         }
 
+        // detect objects within a layer
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             SelectGroupOfObjects();
         }
         
+        // detect all objects in a specified surrounding
         if (Input.GetKeyDown(KeyCode.Mouse2))
         {
             DetectObjectsWithinSphere(1 << 7 | 1 << 8);
         }
     }
-
+    
+    /// <summary>
+    /// Detect single object and enables time manipulation 
+    /// </summary>
     private void SelectObject()
     {
         RaycastHit rayHit;
+        
+        // detection
         if (Physics.Raycast(_playerController.cam.position, _playerController.cam.TransformDirection(Vector3.forward), out rayHit,
             Mathf.Infinity))
         {
@@ -39,6 +49,9 @@ public class ObjectDetection
         }
     }
 
+    /// <summary>
+    /// Detects objects within a layer and enables time manipulation for all of them
+    /// </summary>
     private void SelectGroupOfObjects()
     {
         RaycastHit rayHit;
@@ -52,6 +65,9 @@ public class ObjectDetection
         }
     }
     
+    /// <summary>
+    /// Detects objects within a specified sorrounding and enables time manipulation for all of them
+    /// </summary>
     private void DetectObjectsWithinSphere(LayerMask layerMask)
     {
         Collider[] sphereHit = Physics.OverlapSphere(_playerController.cam.position, 100, layerMask);
@@ -63,6 +79,9 @@ public class ObjectDetection
         }
     }
 
+    /// <summary>
+    /// Enables time manipulation by letting this object into the focus
+    /// </summary>
     private void EnableTimeManipulation(GameObject gameObject)
     {
         ITimeControlable controlableObject = gameObject.GetComponent<ITimeControlable>();

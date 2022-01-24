@@ -1,6 +1,8 @@
 using UnityEngine;
 
-
+/// <summary>
+/// Records forces applied during the freeze state
+/// </summary>
 public class FreezeForceRecorder
 {
     private Vector3 storedImpuls;
@@ -12,10 +14,15 @@ public class FreezeForceRecorder
         this.storedImpuls = new Vector3(0,0,0);
     }
 
+    /// <summary>
+    /// Stores received forced to retrive it after the freeze state ends
+    /// </summary>
+    /// <param name="force">stored force</param>
     public void AddForce(Vector3 force)
     {
         storedImpuls += force;
     }
+    
     
     public void Freeze()
     {
@@ -23,6 +30,9 @@ public class FreezeForceRecorder
         _rigidbody.isKinematic = true;
     }
     
+    /// <summary>
+    /// Ends the freeze state and releases the stored force
+    /// </summary>
     public void UnFreeze()
     {
         _rigidbody.AddForce(storedImpuls);

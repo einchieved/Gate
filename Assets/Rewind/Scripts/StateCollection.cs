@@ -1,6 +1,8 @@
 using DefaultNamespace;
 using UnityEngine;
-
+/// <summary>
+/// Provides Possibility to collect a specified amount of states
+/// </summary>
 public class StateCollection
 {
     private readonly int size = 600;
@@ -13,6 +15,10 @@ public class StateCollection
     }
     
 
+    /// <summary>
+    /// Add Recorded State to Collection
+    /// </summary>
+    /// <param name="state">state to be stored</param>
     public void Push(State state)
     {
         State oldState = states[Mod(pointer - 1, size)];
@@ -24,6 +30,10 @@ public class StateCollection
         }
     }
 
+    /// <summary>
+    /// Retrieve the last recorded state out of the collection
+    /// </summary>
+    /// <returns>the last recorded state</returns>
     public State Pop()
     {
         int lastStatePos = Mod((pointer - 1), size);
@@ -40,6 +50,10 @@ public class StateCollection
         return (x % m + m) % m;
     }
 
+    /// <summary>
+    /// Check if there is a state recorded before the current one
+    /// </summary>
+    /// <returns>true if a state is available else false</returns>
     public bool Peak()
     {
         if (states[Mod((pointer - 1),size)] != null)

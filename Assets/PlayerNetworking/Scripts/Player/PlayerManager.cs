@@ -1,15 +1,17 @@
-
-using System;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
+/// <summary>
+/// Makes sure only one local player instance is loaded
+/// </summary>
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
 
     public static GameObject LocalPlayerInstance;
     
     private void Awake()
     {
+        // load only an instance if the photonview is mine
         if (photonView.IsMine)
         {
             LocalPlayerInstance = gameObject;
@@ -17,7 +19,4 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         DontDestroyOnLoad(gameObject);
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-    }
 }

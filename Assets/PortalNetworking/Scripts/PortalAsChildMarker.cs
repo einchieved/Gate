@@ -1,18 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PortalAsChildMarker : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
+/// <summary>
+/// This class is only used as a merker to indicate that the portal placed at this object should become a child gameobject
+/// </summary>
+public class PortalAsChildMarker {}

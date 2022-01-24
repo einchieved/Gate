@@ -1,12 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-
-
 using Photon.Pun;
-using Photon.Realtime;
-
-
-using System.Collections;
 
 
 namespace Com.MyCompany.MyGame
@@ -26,6 +20,7 @@ namespace Com.MyCompany.MyGame
             InputField _inputField = this.GetComponent<InputField>();
             if (_inputField!=null)
             {
+                //check if the playername is already saved and set it if so
                 if (PlayerPrefs.HasKey(playerNamePrefKey))
                 {
                     defaultName = PlayerPrefs.GetString(playerNamePrefKey);
@@ -43,10 +38,9 @@ namespace Com.MyCompany.MyGame
         /// <param name="value">The name of the Player</param>
         public void SetPlayerName(string value)
         {
-            // #Important
+            // do nothing if there is no player name set
             if (string.IsNullOrEmpty(value))
             {
-                Debug.LogError("Player Name is null or empty");
                 return;
             }
             PhotonNetwork.NickName = value;

@@ -1,14 +1,21 @@
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// This class takes care of the teleporting clone and teleporting velocity.
+/// </summary>
 public class PortingMovementPUN : MonoBehaviourPun
 {
+    // the gameobject used to represent a clone during the porting process
     public GameObject cloneGameObject;
 
+    // the exit direction of the teleporting process
     public Vector3 PortingDirection { get; set; }
+    // the entry direction of the teleporting process
     public Vector3 PortingFromDirection { get; set; }
 
     private Rigidbody rb;
+    // used to calculate the exit velocity after teleporting
     private Vector3 lastvelocity;
     private Transform clone, originalPortal, clonePortal;
     private IPortable portable;
@@ -22,6 +29,7 @@ public class PortingMovementPUN : MonoBehaviourPun
 
     private void FixedUpdate()
     {
+        // keep the velocity of the current frame
         lastvelocity = rb.velocity;
     }
 
@@ -33,6 +41,7 @@ public class PortingMovementPUN : MonoBehaviourPun
         }
     }
 
+    // switches the objects position with the clone position
     public void SwitchPlaceWithClone()
     {
         rb.position = clone.position;
@@ -57,7 +66,7 @@ public class PortingMovementPUN : MonoBehaviourPun
         this.clonePortal = clonePortal;
         clone = PhotonNetwork.Instantiate(cloneGameObject.name, clonePortal.position, Quaternion.identity).transform;
         clone.parent = clonePortal;
-        clone.gameObject.layer = 13; //ClonePlayer
+        clone.gameObject.layer = 13; //Clone Layer
         UpdateClone();
     }
 
@@ -69,6 +78,10 @@ public class PortingMovementPUN : MonoBehaviourPun
 
     #region clone update
 
+    /// <summary>
+    /// Updates the clone position/ rotation to the exit portal, depending on
+    /// the players position/rotation to the entry portal
+    /// </summary>
     public void UpdateClone()
     {
         UpdateClonePosition();
@@ -85,7 +98,6 @@ public class PortingMovementPUN : MonoBehaviourPun
         relativePosition.z = Vector3.Dot(distance, originalPortal.forward);
         // set position of clone relative to other portal
         clone.localPosition = relativePosition;
-        //Debug.Log(relativePosition);
     }
 
     private void UpdateCloneRotation()
@@ -97,9 +109,10 @@ public class PortingMovementPUN : MonoBehaviourPun
 
     #endregion
 
+    // calculates the velocity of this object when exiting the second portal
+    // only a simplification
     private Vector3 DeterminePortingVelocity()
     {
-        Debug.LogError("PortVel");
         // find origin dir
         Vector3 portfromDirNorm = PortingFromDirection.normalized;
         float x = Mathf.Abs(portfromDirNorm.x);

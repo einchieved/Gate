@@ -2,6 +2,9 @@ using System;
 using DefaultNamespace;
 using UnityEngine;
 
+/// <summary>
+/// Enables the Rewind
+/// </summary>
 public class TimeReverser
 {
     private Rigidbody _rb;
@@ -16,12 +19,18 @@ public class TimeReverser
         _statesOverTime = statesOverTime;
     }
 
+    /// <summary>
+    /// Retrive States in a specified time period
+    /// </summary>
     public void Rewind()
     {
         double diffInSeconds = (DateTime.Now - timeOfMeasurement).TotalSeconds;
         
+        // retrieve state every 0.2 seconds
         if (diffInSeconds > 0.2)
         {
+            
+            // make sure a state is available and adapt the rigidbody accordingly to the state
             if (_statesOverTime.Peak())
             { 
                 CurrentState = _statesOverTime.Pop();

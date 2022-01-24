@@ -1,12 +1,15 @@
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// Attached to the destination of the companion cube 
+/// </summary>
 public class DestinationScript : MonoBehaviourPun
 {
     public int nextLevel;
     private void OnCollisionEnter(Collision other)
     {
-        Debug.LogError("Trigger entered");
+        // if the companion cube enters the destination platform, enter the next level
         if (other.gameObject.CompareTag("CompanionCube"))
         {
             PhotonNetwork.Destroy(other.gameObject);
@@ -14,6 +17,9 @@ public class DestinationScript : MonoBehaviourPun
         }    
     }
 
+    /// <summary>
+    /// Prepare both player to enter the next level
+    /// </summary>
     [PunRPC]
     public void LoadPrep()
     {
@@ -26,6 +32,9 @@ public class DestinationScript : MonoBehaviourPun
         DontDestroyOnLoad(playerTwo);
     }
 
+    /// <summary>
+    /// Load the next lövel
+    /// </summary>
     [PunRPC]
     public void LoadLevel()
     {

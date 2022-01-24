@@ -1,7 +1,9 @@
-using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 
+/// <summary>
+/// Base class to enable time manipulation on the attached object
+/// </summary>
 public class ControllerPUN: MonoBehaviourPun
 {
     protected Rigidbody _rb;
@@ -13,6 +15,9 @@ public class ControllerPUN: MonoBehaviourPun
     private FreezeForceRecorderPUN freezeForceRecorder;
 
 
+    /// <summary>
+    /// Creates all objects necessary to enable time manipulation on the attached object
+    /// </summary>
     protected void InitStateHandling()
     {
         _statesOverTime = new StateCollectionPUN();
@@ -28,19 +33,28 @@ public class ControllerPUN: MonoBehaviourPun
         _rb = GetComponent<Rigidbody>();
     }
     
+    /// <summary>
+    /// Depending on the input the time manipulation is controlled
+    /// </summary>
+    /// <param name="rewindKey">Keycode which is used to start the rewind</param>
+    /// <param name="endRewindKey">Keycode which is used to end the rewind</param>
     protected void HandleRewind(KeyCode rewindKey, KeyCode endRewindKey)
     {
+        
+        // start Rewind
         if (Input.GetKeyDown(rewindKey))
         {
             EnableRewind();
         }
 
+        // end Rewind
         if (Input.GetKeyDown(endRewindKey))
         {
             DisableRewind();
             AdaptState();
         }
 
+        // freeze state
         if (Input.GetKeyDown(KeyCode.R))
         {
             Freeze();
@@ -48,6 +62,9 @@ public class ControllerPUN: MonoBehaviourPun
     }
     
 
+    /// <summary>
+    /// Retrieves last state and adapts the object accordingly
+    /// </summary>
     private void AdaptState()
     {
         StatePUN lastState = timeReverser.CurrentState;
@@ -61,13 +78,19 @@ public class ControllerPUN: MonoBehaviourPun
         
     }
 
+    /// <summary>
+    /// Adapt object states to enable rewind
+    /// </summary>
     public void EnableRewind()
     {
         _rewind = true;
         _rb.useGravity = false;
         _rb.isKinematic = true;
     }
-
+    
+    /// <summary>
+    /// Adapt object states to disable rewind
+    /// </summary>
     private void DisableRewind()
     {
         _rewind = false;
@@ -77,6 +100,9 @@ public class ControllerPUN: MonoBehaviourPun
         freezeForceRecorder.UnFreeze();
     }
     
+    /// <summary>
+    /// Freezes all focused objects
+    /// </summary>
     protected void Freeze()
     {
         FreezeAll();
@@ -85,6 +111,8 @@ public class ControllerPUN: MonoBehaviourPun
 
     private void FixedUpdate()
     {
+        
+        // if rewind is not set to true, the state recording is active
         if (!_rewind)
         {
             stateRecorder.RecordStates();
@@ -97,12 +125,16 @@ public class ControllerPUN: MonoBehaviourPun
     
     void OnCollisionEnter(Collision collision)
     {
+        // add force of every collision
         if (freezeForceRecorder != null)
         {
             freezeForceRecorder.AddForce(collision.relativeVelocity);
         }
     }
     
+    /// <summary>
+    /// Delete every recorded state data
+    /// </summary>
     protected virtual void ResetAll()
     {
         _statesOverTime = new StateCollectionPUN();
@@ -110,7 +142,9 @@ public class ControllerPUN: MonoBehaviourPun
         stateRecorder = new StateRecorderPUN(_rb, _statesOverTime);
     }
     
-
+    /// <summary>
+    /// Adapt Object to enable freeze state
+    /// </summary>
     protected virtual void FreezeAll()
     {
         _rewind = false;
