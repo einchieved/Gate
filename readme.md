@@ -1,6 +1,8 @@
 # Gate
 Ein Portal Co-Op Klon mit Zeitmanipulationsfeature.
 
+Benötig Photon Unity Networking. Verwendete Version: 2.39
+
 Das Spiel kann einfach in Unity gestartet werden. Entweder als Build, oder direkt in Unity. Beim Starten in Unity ist aber zu beachten, dass die Scene "Launcher" (Assets/Scenes/MultilevelGame/Launcher.unity) geöffnet ist. Die Steuerung ist im Wiki unter [Steuerung](https://github.com/einchieved/Gate/wiki/05-Steuerung) zu finden.
 
 Die Videos von unseren Präsentationen und ein extra Gameplayvideo befinden sich auf der [Home](https://github.com/einchieved/Gate/wiki/01-Home) Seite im Wiki.
